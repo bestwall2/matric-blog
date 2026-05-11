@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Twitter, Youtube, MessageCircle } from "lucide-react";
+import { Send, Play, MessageCircle } from "lucide-react";
 
 export function SiteFooter() {
   return (
@@ -16,8 +16,8 @@ export function SiteFooter() {
               محتوى موثوق حول البث الرياضي، كرة القدم، والأدلة التقنية — بجودة تناسب القارئ العربي.
             </p>
             <div className="mt-6 flex gap-3">
-              <SocialIcon href="#" icon={<Twitter className="size-4" />} />
-              <SocialIcon href="#" icon={<Youtube className="size-4" />} />
+              <SocialIcon href="#" icon={<Send className="size-4" />} />
+              <SocialIcon href="#" icon={<Play className="size-4" />} />
               <SocialIcon href="#" icon={<MessageCircle className="size-4" />} />
             </div>
           </div>

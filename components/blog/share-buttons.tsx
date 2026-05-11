@@ -1,6 +1,6 @@
 "use client";
 
-import { Twitter, MessageCircle, Facebook, Link2, Copy } from "lucide-react";
+import { MessageCircle, Share2, Copy, Send } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
@@ -18,7 +18,7 @@ export function ShareButtons({
     <div className="flex flex-wrap gap-4">
       <ShareCircle
         href={`https://twitter.com/intent/tweet?url=${encoded}&text=${text}`}
-        icon={<Twitter className="size-5" />}
+        icon={<Send className="size-5" />}
         label="X"
       />
       <ShareCircle
@@ -29,7 +29,7 @@ export function ShareButtons({
       />
       <ShareCircle
         href={`https://www.facebook.com/sharer/sharer.php?u=${encoded}`}
-        icon={<Facebook className="size-5" />}
+        icon={<Share2 className="size-5" />}
         label="Facebook"
         color="hover:bg-blue-700"
       />
@@ -79,4 +79,5 @@ function ShareCircle({
     </a>
   );
 }
+
 
