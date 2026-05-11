@@ -9,7 +9,7 @@ import { ShareButtons } from "@/components/blog/share-buttons";
 import { TocSidebar } from "@/components/blog/toc-sidebar";
 import { ViewTracker } from "@/components/blog/view-tracker";
 import { JsonLd } from "@/components/seo/json-ld";
-import { SITE_NAME, SITE_URL } from "@/lib/constants";
+import { SITE_URL } from "@/lib/constants";
 import {
   fetchPostBySlugPublic,
   fetchRelatedPosts,
