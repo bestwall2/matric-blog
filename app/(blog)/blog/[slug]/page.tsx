@@ -33,10 +33,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description =
     post.meta_description?.trim() || post.excerpt || post.title;
   const canonical = post.canonical_url?.trim() || articleUrl(post.slug);
-  const og =
-    post.og_image?.trim() ||
-    post.featured_image?.trim() ||
-    `${SITE_URL}/api/og?title=${encodeURIComponent(post.title)}`;
+  
+  // Ensure og:image doesn't use third-party domains like mrkehel.com
+  let og = post.featured_image?.trim();
+  if (!og || og.includes("mrkehel.com")) {
+    og = post.og_image?.trim();
+  }
+  if (!og || og.includes("mrkehel.com")) {
+    og = `${SITE_URL}/api/og?title=${encodeURIComponent(post.title)}`;
+  }
 
   const robots =
     post.robots_meta?.includes("noindex") ?
@@ -131,13 +136,23 @@ export default async function ArticlePage({ params }: Props) {
           {post.excerpt ? (
             <p className="max-w-3xl text-lg text-neutral-400">{post.excerpt}</p>
           ) : null}
-          <div className="flex flex-wrap items-center gap-4 text-sm text-neutral-500">
-            <span>{post.authors?.name ?? SITE_NAME}</span>
-            <span>
-              {post.published_at ?
-                new Date(post.published_at).toLocaleDateString("ar-MA")
-              : ""}
-            </span>
+          
+          <div className="flex items-center gap-4 pt-4">
+            <Avatar className="size-12 border-2 border-[#e63946]">
+              <AvatarFallback className="bg-[#e63946] text-white font-bold">M</AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col">
+              <span className="font-medium text-white">فريق تحرير MatricBlog</span>
+              <div className="flex items-center gap-2 text-xs text-neutral-500">
+                <span>فريق متخصص في أدلة البث الرياضي والتقنية للقارئ العربي</span>
+                <span>•</span>
+                <span>
+                  {post.published_at ?
+                    new Date(post.published_at).toLocaleDateString("ar-MA")
+                  : ""}
+                </span>
+              </div>
+            </div>
           </div>
         </header>
 
