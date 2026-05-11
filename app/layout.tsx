@@ -48,9 +48,24 @@ export default function RootLayout({
       lang="ar"
       dir="rtl"
       suppressHydrationWarning
-      className={`dark ${heading.variable} ${body.variable}`}
+      className={`${heading.variable} ${body.variable}`}
     >
-      <body className="min-h-screen bg-[#0a0a0a] antialiased text-neutral-100 selection:bg-[#e63946]/30">
+      <head>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              var theme = localStorage.getItem('matric-theme') || 'dark';
+              document.documentElement.className = theme + ' no-transition';
+              setTimeout(function() {
+                document.documentElement.classList.remove('no-transition');
+              }, 100);
+            })();
+          `
+        }} />
+      </head>
+      <body
+        className="min-h-screen bg-[var(--bg-primary)] antialiased text-[var(--text-primary)] selection:bg-[#e63946]/30"
+      >
         <Providers>{children}</Providers>
       </body>
     </html>

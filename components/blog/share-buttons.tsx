@@ -43,7 +43,7 @@ export function ShareButtons({
           }
         }}
         className={cn(
-          "flex size-12 items-center justify-center rounded-full bg-[#111111] border border-white/5 text-white transition-all hover:bg-white/10 hover:scale-110 active:scale-95"
+          "flex size-12 items-center justify-center rounded-full bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-primary)] transition-all hover:bg-[var(--bg-elevated)] hover:scale-110 active:scale-95"
         )}
         title="نسخ الرابط"
       >
@@ -70,7 +70,7 @@ function ShareCircle({
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "flex size-12 items-center justify-center rounded-full bg-[#111111] border border-white/5 text-white transition-all hover:scale-110 active:scale-95",
+        "flex size-12 items-center justify-center rounded-full bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-primary)] transition-all hover:scale-110 active:scale-95",
         color
       )}
       title={label}

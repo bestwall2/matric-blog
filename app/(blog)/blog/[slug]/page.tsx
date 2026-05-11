@@ -130,18 +130,18 @@ export default async function ArticlePage({ params }: Props) {
               />
             </div>
 
-            <h1 className="font-heading text-3xl font-black leading-[1.3] text-white md:text-[40px] lg:text-[48px]">
+            <h1 className="font-heading text-3xl font-black leading-[1.3] text-[var(--text-primary)] md:text-[40px] lg:text-[48px]">
               {displayTitle}
             </h1>
 
-            <div className="mt-8 flex flex-wrap items-center gap-4 text-[#888888]">
+            <div className="mt-8 flex flex-wrap items-center gap-4 text-[var(--text-muted)]">
               <div className="flex items-center gap-2">
                 <Avatar className="size-8 border border-white/10">
-                  <AvatarFallback className="bg-[#1a1a1a] text-[10px] text-white">M</AvatarFallback>
+                  <AvatarFallback className="bg-[var(--bg-elevated)] text-[10px] text-[var(--text-primary)]">M</AvatarFallback>
                 </Avatar>
-                <span className="text-[14px] font-medium text-white">{post.authors?.name || "المحرر"}</span>
+                <span className="text-[14px] font-medium text-[var(--text-primary)]">{post.authors?.name || "المحرر"}</span>
               </div>
-              <span className="text-[#333333]">•</span>
+              <span className="text-[var(--text-faint)]">•</span>
               <div className="flex items-center gap-1.5">
                 <Calendar className="size-4" />
                 <span className="text-[14px]">
@@ -154,7 +154,7 @@ export default async function ArticlePage({ params }: Props) {
                   : ""}
                 </span>
               </div>
-              <span className="text-[#333333]">•</span>
+              <span className="text-[var(--text-faint)]">•</span>
               <div className="flex items-center gap-1.5">
                 <Clock className="size-4" />
                 <span className="text-[14px]">{post.reading_time ?? 7} دقائق قراءة</span>
@@ -181,15 +181,15 @@ export default async function ArticlePage({ params }: Props) {
             />
             
             <div className="mt-16 flex flex-col gap-6">
-              <h3 className="font-heading text-xl font-bold text-white">شارك هذا المقال</h3>
+              <h3 className="font-heading text-xl font-bold text-[var(--text-primary)]">شارك هذا المقال</h3>
               <ShareButtons url={url} title={displayTitle} />
             </div>
 
             {related.length > 0 && (
               <section className="mt-24 space-y-10">
                 <div className="flex items-center justify-between">
-                  <h2 className="font-heading text-2xl font-black text-white md:text-3xl">اقرأ أيضاً</h2>
-                  <div className="h-0.5 flex-1 bg-white/5 mx-6" />
+                  <h2 className="font-heading text-2xl font-black text-[var(--text-primary)] md:text-3xl">اقرأ أيضاً</h2>
+                  <div className="h-0.5 flex-1 bg-[var(--border)] mx-6" />
                 </div>
                 <ArticleGrid posts={related} />
               </section>

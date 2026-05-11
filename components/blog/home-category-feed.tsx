@@ -30,7 +30,7 @@ export function HomeCategoryFeed({
             "flex h-9 min-w-fit items-center justify-center rounded-full px-6 text-[14px] font-bold transition-all duration-150",
             active === null
               ? "bg-[#e63946] text-white shadow-[0_2px_10px_rgba(230,57,70,0.3)]"
-              : "border border-white/10 bg-[#1a1a1a] text-[#888888] hover:border-white/30 hover:text-white"
+              : "border border-[var(--border)] bg-[var(--bg-elevated)] text-[var(--text-muted)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)]"
           )}
         >
           الكل
@@ -44,7 +44,7 @@ export function HomeCategoryFeed({
               "flex h-9 min-w-fit items-center justify-center rounded-full px-6 text-[14px] font-bold transition-all duration-150",
               active === c.slug
                 ? "bg-[#e63946] text-white shadow-[0_2px_10px_rgba(230,57,70,0.3)]"
-                : "border border-white/10 bg-[#1a1a1a] text-[#888888] hover:border-white/30 hover:text-white"
+                : "border border-[var(--border)] bg-[var(--bg-elevated)] text-[var(--text-muted)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)]"
             )}
           >
             {c.name_ar?.trim() ? c.name_ar : c.name}

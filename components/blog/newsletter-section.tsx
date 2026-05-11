@@ -37,14 +37,14 @@ export function NewsletterSection() {
       </div>
 
       <div className="relative mx-auto max-w-[560px] px-6 text-center">
-        <div className="mx-auto mb-8 flex size-[80px] items-center justify-center rounded-full bg-white/5 border border-white/10">
+        <div className="mx-auto mb-8 flex size-[80px] items-center justify-center rounded-full bg-[var(--bg-elevated)] border border-[var(--border)]">
           <Mail className="size-10 text-[#e63946]" />
         </div>
         
-        <h2 className="font-heading text-[28px] font-bold text-white">
+        <h2 className="font-heading text-[28px] font-bold text-[var(--text-primary)]">
           لمحة أسبوعية من أهم الأدلة والتحديثات
         </h2>
-        <p className="mt-3 text-[15px] text-[#888888]">
+        <p className="mt-3 text-[15px] text-[var(--text-muted)]">
           انضم إلى أكثر من 5000 قارئ مهتم بجديد التقنية والرياضة.
         </p>
 
@@ -58,7 +58,7 @@ export function NewsletterSection() {
             placeholder="البريد الإلكتروني"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="h-[52px] rounded-xl border-white/10 bg-[#0a0a0a] text-white placeholder:text-[#888888] focus-visible:border-[#e63946] focus-visible:ring-0"
+            className="h-[52px] rounded-xl border-[var(--border)] bg-[var(--bg-input)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus-visible:border-[var(--accent)] focus-visible:ring-0"
           />
           <Button
             type="submit"
@@ -69,7 +69,7 @@ export function NewsletterSection() {
           </Button>
         </form>
 
-        <div className="mt-6 flex items-center justify-center gap-2 text-[12px] text-[#888888]">
+        <div className="mt-6 flex items-center justify-center gap-2 text-[12px] text-[var(--text-muted)]">
           <Lock className="size-3" />
           <span>بريدك يبقى خاصًا — لا رسائل مزعجة.</span>
         </div>

@@ -70,8 +70,8 @@ export function TocSidebar() {
   if (!items.length) return null;
 
   return (
-    <div className="rounded-[12px] bg-[#111111] border border-white/5 p-5">
-      <p className="font-heading text-[14px] font-bold text-white mb-4">
+    <div className="rounded-[12px] bg-[var(--bg-card)] border border-[var(--border)] p-5">
+      <p className="font-heading text-[14px] font-bold text-[var(--text-primary)] mb-4">
         محتويات المقال
       </p>
       <nav className="space-y-3 text-[14px]">
@@ -84,7 +84,7 @@ export function TocSidebar() {
               it.level === 3 ? "pr-4 text-[13px]" : "font-medium",
               active === it.id 
                 ? "text-[#e63946] pr-2 border-r-2 border-[#e63946]" 
-                : "text-[#888888] hover:text-white pr-2 border-r-2 border-transparent"
+                : "text-[var(--text-muted)] hover:text-[var(--text-primary)] pr-2 border-r-2 border-transparent"
             )}
           >
             {it.text}

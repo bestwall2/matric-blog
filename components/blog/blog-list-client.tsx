@@ -25,9 +25,9 @@ export function BlogListClient({ posts }: { posts: PostWithRelations[] }) {
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="بحث ضمن صفحة النتائج الحالية..."
-          className="border-white/15 bg-[#141414] text-white placeholder:text-neutral-600"
+          className="border-[var(--border)] bg-[var(--bg-elevated)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)]"
         />
-        <p className="mt-2 text-xs text-neutral-500">
+        <p className="mt-2 text-xs text-[var(--text-muted)]">
           البحث يطبّق على المقالات المعروضة في هذه الصفحة فقط. غيّر التصفية أو
           الترتيب من الشريط أعلاه لتوسيع النتائج.
         </p>

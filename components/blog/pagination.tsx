@@ -43,7 +43,7 @@ export function Pagination({
       />
       {compact.map((p, idx) =>
         p === -1 ? (
-          <span key={`e-${idx}`} className="px-2 text-[#333333]">
+          <span key={`e-${idx}`} className="px-2 text-[var(--text-faint)]">
             …
           </span>
         ) : (
@@ -54,7 +54,7 @@ export function Pagination({
               "flex size-10 items-center justify-center rounded-full border text-[14px] font-bold transition-all duration-200",
               p === page
                 ? "border-[#e63946] bg-[#e63946] text-white shadow-[0_2px_10px_rgba(230,57,70,0.3)]"
-                : "border-white/10 bg-[#111111] text-[#888888] hover:border-white/30 hover:text-white"
+                : "border-[var(--border)] bg-[var(--bg-card)] text-[var(--text-muted)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)]"
             )}
           >
             {p}
@@ -81,7 +81,7 @@ function PaginationLink({
 }) {
   if (disabled) {
     return (
-      <span className="rounded-full border border-white/5 px-6 py-2 text-[14px] font-bold text-[#333333]">
+      <span className="rounded-full border border-[var(--border)] px-6 py-2 text-[14px] font-bold text-[var(--text-faint)]">
         {label}
       </span>
     );
@@ -89,7 +89,7 @@ function PaginationLink({
   return (
     <Link
       href={href}
-      className="rounded-full border border-white/10 bg-[#111111] px-6 py-2 text-[14px] font-bold text-white transition-all hover:border-white/30 hover:bg-[#1a1a1a]"
+      className="rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-6 py-2 text-[14px] font-bold text-[var(--text-primary)] transition-all hover:border-[var(--border-hover)] hover:bg-[var(--bg-elevated)]"
     >
       {label}
     </Link>

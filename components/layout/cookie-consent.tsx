@@ -29,10 +29,10 @@ export function CookieConsent() {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-[100] p-4 md:p-6">
       <div className="mx-auto max-w-4xl animate-in fade-in slide-in-from-bottom-10 duration-500">
-        <div className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-[#141414]/95 p-6 backdrop-blur-xl md:flex-row md:items-center md:justify-between md:gap-8">
+        <div className="flex flex-col gap-4 rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)]/95 p-6 backdrop-blur-xl md:flex-row md:items-center md:justify-between md:gap-8">
           <div className="space-y-1">
-            <h3 className="font-heading text-lg text-white">إعدادات ملفات تعريف الارتباط</h3>
-            <p className="text-sm leading-relaxed text-neutral-400">
+            <h3 className="font-heading text-lg text-[var(--text-primary)]">إعدادات ملفات تعريف الارتباط</h3>
+            <p className="text-sm leading-relaxed text-[var(--text-muted)]">
               نستخدم ملفات تعريف الارتباط لتحسين تجربتك ولأغراض التحليل والإعلانات (مثل Google AdSense). لمزيد من التفاصيل، راجع{" "}
               <Link href="/privacy" className="text-[#e63946] hover:underline">
                 سياسة الخصوصية
@@ -44,7 +44,7 @@ export function CookieConsent() {
               variant="outline"
               size="sm"
               onClick={handleReject}
-              className="border-white/10 bg-transparent text-white hover:bg-white/5"
+              className="border-[var(--border)] bg-transparent text-[var(--text-primary)] hover:bg-[var(--bg-elevated)]"
             >
               رفض غير الضروري
             </Button>

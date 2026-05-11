@@ -13,7 +13,7 @@ export function HeroFeatured({
   const excerpt = post.excerpt ?? "";
 
   return (
-    <section className="relative h-[100vh] w-full overflow-hidden bg-[#0a0a0a] flex items-center">
+    <section className="relative h-[100vh] w-full overflow-hidden bg-[var(--bg-primary)] flex items-center">
       {/* Animated Background */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(230,57,70,0.1),transparent_70%)] animate-pulse" />
@@ -34,17 +34,17 @@ export function HeroFeatured({
               مقال مميز
             </Badge>
             
-            <h1 className="font-heading text-4xl font-black leading-[1.2] text-white md:text-5xl lg:text-[56px]">
+            <h1 className="font-heading text-4xl font-black leading-[1.2] text-[var(--text-primary)] md:text-5xl lg:text-[56px]">
               {title}
             </h1>
             
             {excerpt && (
-              <p className="mt-6 max-w-xl text-lg leading-[1.8] text-[#888888]">
+              <p className="mt-6 max-w-xl text-lg leading-[1.8] text-[var(--text-muted)]">
                 {excerpt}
               </p>
             )}
 
-            <div className="mt-6 flex items-center gap-3 text-[#888888]">
+            <div className="mt-6 flex items-center gap-3 text-[var(--text-muted)]">
               <Clock className="size-4" />
               <span className="text-[14px]">{post.reading_time ?? 7} دقائق قراءة</span>
             </div>
@@ -58,7 +58,7 @@ export function HeroFeatured({
               </Link>
               <Link
                 href="/blog"
-                className="rounded-xl border border-white/10 bg-white/5 px-8 py-4 text-[16px] font-bold text-white transition-all hover:bg-white/10"
+                className="rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] px-8 py-4 text-[16px] font-bold text-[var(--text-primary)] transition-all hover:bg-[var(--bg-elevated)]"
               >
                 تصفح الأرشيف
               </Link>
@@ -82,7 +82,7 @@ export function HeroFeatured({
                   sizes="(max-width:1024px) 100vw, 50vw"
                 />
               ) : (
-                <div className="flex h-full items-center justify-center bg-gradient-to-br from-[#1a0a0a] to-[#0a0a0a]">
+                <div className="flex h-full items-center justify-center bg-gradient-to-br from-[var(--bg-elevated)] to-[var(--bg-primary)]">
                   <span className="font-heading text-4xl font-black text-white/10">MatricBlog</span>
                 </div>
               )}
@@ -95,7 +95,7 @@ export function HeroFeatured({
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-        <ChevronDown className="size-8 text-[#888888]" />
+        <ChevronDown className="size-8 text-[var(--text-muted)]" />
       </div>
     </section>
   );

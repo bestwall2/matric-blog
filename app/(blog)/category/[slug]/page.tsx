@@ -34,10 +34,10 @@ export default async function CategoryPage({
   return (
     <div className="mx-auto max-w-6xl space-y-10 px-4 py-12 md:px-6">
       <header className="space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#e11d48]">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--accent)]">
           تصنيف
         </p>
-        <h1 className="font-heading text-4xl text-white md:text-5xl">
+        <h1 className="font-heading text-4xl text-[var(--text-primary)] md:text-5xl">
           {cat.name_ar?.trim() ? cat.name_ar : cat.name}
         </h1>
         {cat.description ?

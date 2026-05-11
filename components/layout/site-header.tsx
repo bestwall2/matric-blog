@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import { X, ArrowLeft } from "lucide-react";
+import { ThemeToggleDesktop, ThemeToggleMobile } from "@/components/theme/theme-toggle";
 
 const links = [
   { href: "/", label: "الرئيسية" },
@@ -39,12 +40,12 @@ export function SiteHeader() {
   }, []);
 
   return (
-    <header className="glass fixed top-0 z-50 w-full border-b border-white/5 h-16">
+    <header className="glass fixed top-0 z-50 w-full border-b border-[var(--border)] h-16">
       <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4 md:px-8">
         {/* Logo (Right in RTL) */}
         <Link href="/" className="group flex items-center gap-2">
           <div className="size-3 bg-[#e63946] transition-transform group-hover:rotate-45" />
-          <span className="font-heading text-xl font-black tracking-tight text-white md:text-2xl">
+          <span className="font-heading text-xl font-black tracking-tight text-[var(--text-primary)] md:text-2xl">
             MatricBlog
           </span>
         </Link>
@@ -58,8 +59,8 @@ export function SiteHeader() {
               className={cn(
                 "text-[15px] font-medium transition-all duration-300",
                 pathname === l.href 
-                  ? "text-white" 
-                  : "text-[#888888] hover:text-white"
+                  ? "text-[var(--text-primary)]" 
+                  : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
               )}
             >
               {l.label}
@@ -67,8 +68,11 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        {/* CTA & Mobile Trigger (Left in RTL) */}
-        <div className="flex items-center gap-4">
+        {/* CTA, Theme Toggle & Mobile Trigger (Left in RTL) */}
+        <div className="flex items-center gap-3">
+          <div className="hidden md:block">
+            <ThemeToggleDesktop />
+          </div>
           <Link
             href="/blog"
             className="hidden rounded-full bg-[#e63946] px-6 py-2 text-[14px] font-bold text-white transition-all hover:bg-[#c1121f] hover:scale-105 active:scale-95 md:inline-block"
@@ -109,7 +113,7 @@ export function SiteHeader() {
       {/* Mobile Drawer Overlay */}
       {open && (
         <div 
-          className="fixed inset-0 z-50 bg-black/75 backdrop-blur-[4px] transition-opacity duration-300"
+          className="fixed inset-0 z-50 bg-[var(--overlay)] backdrop-blur-[4px] transition-opacity duration-300"
           onClick={() => setOpen(false)}
         />
       )}
@@ -117,24 +121,25 @@ export function SiteHeader() {
       {/* Mobile Drawer Content */}
       <div 
         className={cn(
-          "fixed inset-y-0 right-0 z-50 w-[85%] max-w-[320px] bg-gradient-to-b from-[#0f0f0f] to-[#1a0505] shadow-[-20px_0_60px_rgba(0,0,0,0.8)] border-l border-[#e63946]/20 transition-transform duration-[0.35s] cubic-bezier(0.32, 0.72, 0, 1) md:hidden flex flex-col",
+          "fixed inset-y-0 right-0 z-50 w-[85%] max-w-[320px] shadow-[var(--shadow-card)] border-l border-[var(--border)] transition-transform duration-[0.35s] cubic-bezier(0.32, 0.72, 0, 1) md:hidden flex flex-col",
           open ? "translate-x-0" : "translate-x-full"
         )}
+        style={{background: 'var(--drawer-bg)'}}
       >
         {/* Drawer Header */}
-        <div className="relative flex h-[120px] flex-col justify-center border-b border-white/5 px-8">
+        <div className="relative flex h-[120px] flex-col justify-center border-b border-[var(--border)] px-8">
           <button
             onClick={() => setOpen(false)}
-            className="absolute left-4 top-4 flex size-10 items-center justify-center rounded-full bg-white/5 text-white transition-all hover:bg-[#e63946]/30"
+            className="absolute left-4 top-4 flex size-10 items-center justify-center rounded-full bg-[var(--bg-elevated)] text-[var(--text-primary)] transition-all hover:bg-[var(--accent)]/30"
           >
             <X className="size-5" />
           </button>
           <div className="flex flex-col gap-1">
             <div className="flex items-center gap-2">
               <div className="size-3 bg-[#e63946]" />
-              <span className="font-heading text-2xl font-black text-white">MatricBlog</span>
+              <span className="font-heading text-2xl font-black text-[var(--text-primary)]">MatricBlog</span>
             </div>
-            <span className="text-[13px] text-[#666]">مرحباً بك في MatricBlog</span>
+            <span className="text-[13px] text-[var(--text-faint)]">مرحباً بك في MatricBlog</span>
           </div>
         </div>
 
@@ -146,24 +151,29 @@ export function SiteHeader() {
               href={l.href}
               onClick={() => setOpen(false)}
               className={cn(
-                "group relative flex h-16 items-center justify-between border-b border-white/[0.04] px-8 transition-all duration-200",
+                "group relative flex h-16 items-center justify-between border-b border-[var(--border)] px-8 transition-all duration-200",
                 pathname === l.href 
-                  ? "bg-[#e63946]/10 text-[#e63946] border-r-[3px] border-[#e63946]" 
-                  : "text-[#e0e0e0] hover:bg-white/[0.04] hover:text-white",
+                  ? "bg-[var(--accent)]/10 text-[var(--accent)] border-r-[3px] border-[var(--accent)]" 
+                  : "text-[var(--text-primary)] hover:bg-[var(--bg-elevated)] hover:text-[var(--text-primary)]",
                 open ? `animate-stagger-${index + 1}` : ""
               )}
             >
               <span className="font-heading text-lg font-semibold">{l.label}</span>
               <ArrowLeft className={cn(
-                "size-4 text-[#e63946] transition-all duration-300",
+                "size-4 text-[var(--accent)] transition-all duration-300",
                 pathname === l.href ? "opacity-100 translate-x-0" : "opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"
               )} />
             </Link>
           ))}
         </nav>
 
+        {/* Mobile Theme Toggle */}
+        <div className="mt-auto">
+          <ThemeToggleMobile />
+        </div>
+
         {/* Drawer Footer */}
-        <div className="mt-auto border-t border-white/5 p-8">
+        <div className="border-t border-[var(--border)] p-8">
           <Link
             href="/blog"
             onClick={() => setOpen(false)}

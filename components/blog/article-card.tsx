@@ -25,7 +25,7 @@ export function ArticleCard({
   const colorClass = categoryColors[catSlug] || categoryColors.editorial;
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-[16px] bg-[#111111] border border-white/5 transition-all duration-300 hover:-translate-y-[6px] hover:card-shadow-hover">
+    <article className="group flex h-full flex-col overflow-hidden rounded-[16px] bg-[var(--bg-card)] border border-[var(--border)] transition-all duration-300 hover:-translate-y-[6px] hover:card-shadow-hover">
       <Link
         href={`/blog/${post.slug}`}
         className="relative block aspect-[16/9] overflow-hidden"
@@ -39,7 +39,7 @@ export function ArticleCard({
             sizes="(max-width:768px) 100vw, (max-width:1200px) 50vw, 33vw"
           />
         ) : (
-          <div className="flex h-full items-center justify-center bg-gradient-to-br from-[#1a0a0a] to-[#0a0a0a]">
+          <div className="flex h-full items-center justify-center bg-gradient-to-br from-[var(--bg-elevated)] to-[var(--bg-primary)]">
             <span className="font-heading text-xl font-black text-white/10">MatricBlog</span>
           </div>
         )}
@@ -55,25 +55,25 @@ export function ArticleCard({
         </div>
 
         <Link href={`/blog/${post.slug}`}>
-          <h3 className="line-clamp-2 font-heading text-[18px] font-bold leading-tight text-white transition-colors group-hover:text-[#e63946]">
+          <h3 className="line-clamp-2 font-heading text-[18px] font-bold leading-tight text-[var(--text-primary)] transition-colors group-hover:text-[var(--accent)]">
             {title}
           </h3>
         </Link>
         
         {excerpt && (
-          <p className="mt-3 line-clamp-3 text-[14px] leading-relaxed text-[#888888]">
+          <p className="mt-3 line-clamp-3 text-[14px] leading-relaxed text-[var(--text-muted)]">
             {excerpt}
           </p>
         )}
 
-        <div className="mt-auto pt-6 flex items-center justify-between border-t border-white/5">
+        <div className="mt-auto pt-6 flex items-center justify-between border-t border-[var(--border)]">
           <div className="flex items-center gap-2">
-            <div className="flex size-7 items-center justify-center rounded-full bg-[#1a1a1a] text-[10px] font-bold text-white border border-white/10">
+            <div className="flex size-7 items-center justify-center rounded-full bg-[var(--bg-elevated)] text-[10px] font-bold text-[var(--text-primary)] border border-[var(--border)]">
               {post.authors?.name?.charAt(0) || "M"}
             </div>
             <div className="flex flex-col">
-              <span className="text-[12px] font-medium text-white">{post.authors?.name || "المحرر"}</span>
-              <span className="text-[10px] text-[#888888]">
+              <span className="text-[12px] font-medium text-[var(--text-primary)]">{post.authors?.name || "المحرر"}</span>
+              <span className="text-[10px] text-[var(--text-muted)]">
                 {post.published_at
                   ? new Date(post.published_at).toLocaleDateString("ar-MA", {
                       month: "short",
@@ -83,7 +83,7 @@ export function ArticleCard({
               </span>
             </div>
           </div>
-          <div className="flex items-center gap-1.5 text-[#888888]">
+          <div className="flex items-center gap-1.5 text-[var(--text-muted)]">
             <Clock className="size-3" />
             <span className="text-[11px] font-medium">{mins} دقائق</span>
           </div>

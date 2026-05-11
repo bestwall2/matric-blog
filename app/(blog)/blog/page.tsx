@@ -40,12 +40,12 @@ export default async function BlogListingPage({
     <div className="mx-auto w-full max-w-7xl px-4 py-32 md:px-8">
       <header className="space-y-6">
         <div>
-          <h1 className="font-heading text-4xl font-black text-white md:text-5xl">
+          <h1 className="font-heading text-4xl font-black text-[var(--text-primary)] md:text-5xl">
             جميع المقالات
           </h1>
           <div className="mt-2 h-1 w-20 bg-[#e63946]" />
         </div>
-        <p className="max-w-2xl text-[16px] leading-relaxed text-[#888888]">
+        <p className="max-w-2xl text-[16px] leading-relaxed text-[var(--text-muted)]">
           أدلة تقنية، أخبار البث، وتحليلات كرة القدم بلغة عربية واضحة ومتوافقة مع
           سياسات الإعلانات وجودة البحث.
         </p>

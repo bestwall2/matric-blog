@@ -47,11 +47,11 @@ export function BlogToolbar({
       </div>
 
       {/* Sort Options */}
-      <div className="flex items-center gap-6 border-b border-white/5 pb-2">
+      <div className="flex items-center gap-6 border-b border-[var(--border)] pb-2">
         <button
           className={cn(
             "relative pb-2 text-[15px] font-bold transition-colors",
-            sort === "latest" ? "text-white" : "text-[#888888] hover:text-white"
+            sort === "latest" ? "text-[var(--text-primary)]" : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
           )}
         >
           <Link
@@ -69,7 +69,7 @@ export function BlogToolbar({
         <button
           className={cn(
             "relative pb-2 text-[15px] font-bold transition-colors",
-            sort === "views" ? "text-white" : "text-[#888888] hover:text-white"
+            sort === "views" ? "text-[var(--text-primary)]" : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
           )}
         >
           <Link
@@ -105,7 +105,7 @@ function CategoryPill({
         "flex h-9 min-w-fit items-center justify-center rounded-full px-6 text-[14px] font-bold transition-all duration-150",
         active
           ? "bg-[#e63946] text-white shadow-[0_2px_10px_rgba(230,57,70,0.3)]"
-          : "border border-white/10 bg-[#1a1a1a] text-[#888888] hover:border-white/30 hover:text-white"
+          : "border border-[var(--border)] bg-[var(--bg-elevated)] text-[var(--text-muted)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)]"
       )}
     >
       {label}
