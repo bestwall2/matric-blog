@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { getIsAdmin } from "@/lib/auth";
-import { callGrokJson, parseJsonLoose } from "@/lib/grok";
+import { callGeminiJson, parseJsonLoose } from "@/lib/gemini";
 
 const bodySchema = z.object({
   html: z.string().min(20),
@@ -38,7 +38,7 @@ ${instruction ? `Editor notes: ${instruction}` : ""}
 HTML:
 ${html.slice(0, 120_000)}`;
 
-    const raw = await callGrokJson({
+    const raw = await callGeminiJson({
       system,
       user,
       maxOutputTokens: 4096,

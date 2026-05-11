@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { getIsAdmin } from "@/lib/auth";
-import { callGrokJson, parseJsonLoose } from "@/lib/grok";
+import { callGeminiJson, parseJsonLoose } from "@/lib/gemini";
 
 const bodySchema = z.object({
   topic: z.string().min(3),
@@ -85,7 +85,7 @@ Return a JSON object with this exact structure:
   "seo_notes": ["List of SEO improvements made"]
 }`;
 
-    const raw = await callGrokJson({
+    const raw = await callGeminiJson({
       system: systemPrompt,
       user: userPrompt,
       maxOutputTokens: 4096,

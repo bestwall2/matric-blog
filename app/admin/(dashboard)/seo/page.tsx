@@ -44,7 +44,7 @@ export default function AdminSeoToolsPage() {
         </p>
         <h1 className="mt-2 font-heading text-4xl text-white">أدوات تحسين المقالات</h1>
         <p className="mt-3 text-sm text-neutral-400">
-          تحسين HTML للقابلية للقراءة وSEO مع Claude، ثم انسخ الناتج إلى المحرّر.
+          تحسين HTML للقابلية للقراءة وSEO مع Gemini، ثم انسخ الناتج إلى المحرّر.
         </p>
       </header>
 
