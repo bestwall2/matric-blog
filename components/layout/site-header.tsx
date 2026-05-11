@@ -43,7 +43,7 @@ export function SiteHeader() {
   }, []);
 
   return (
-    <header className="glass fixed top-0 z-[200] w-full border-b border-[var(--border)] h-16">
+    <header className="glass fixed top-0 z-[1000] w-full border-b border-[var(--border)] h-16 md:z-[200]">
       <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4 md:px-8">
         {/* Logo (Right in RTL) */}
         <Link href="/" className="group flex items-center gap-2">
@@ -85,9 +85,10 @@ export function SiteHeader() {
 
           {/* Hamburger Trigger */}
           <button
-            onClick={() => setOpen(!open)}
+            type="button"
+            onClick={() => setOpen(true)}
             className="relative z-[70] flex size-11 items-center justify-center md:hidden"
-            aria-label="Toggle Menu"
+            aria-label="Open Menu"
             aria-expanded={open}
           >
             <div className="relative flex size-6 flex-col items-center justify-center gap-1.5">
@@ -108,7 +109,7 @@ export function SiteHeader() {
       {/* Mobile Drawer Overlay */}
       {open && (
         <div 
-          className="fixed inset-0 z-[80] bg-[var(--overlay)] backdrop-blur-[4px] transition-opacity duration-300"
+          className="fixed inset-0 z-[1100] bg-black/75 backdrop-blur-[4px] transition-opacity duration-300"
           onClick={() => setOpen(false)}
         />
       )}
@@ -116,13 +117,14 @@ export function SiteHeader() {
       {/* Mobile Drawer Content */}
       <div 
         className={cn(
-          "fixed inset-y-0 right-0 z-[90] w-[85%] max-w-[320px] shadow-[var(--shadow-card)] border-l border-white/10 transition-transform duration-[0.35s] cubic-bezier(0.32, 0.72, 0, 1) md:hidden flex flex-col bg-[var(--drawer-bg)]",
+          "fixed inset-y-0 right-0 z-[1200] w-[85%] max-w-[320px] shadow-[var(--shadow-card)] border-l border-white/10 transition-transform duration-[0.35s] cubic-bezier(0.32, 0.72, 0, 1) md:hidden flex flex-col bg-[#050505] opacity-100",
           open ? "translate-x-0" : "translate-x-full"
         )}
       >
         {/* Drawer Header */}
         <div className="relative flex h-[120px] flex-col justify-center border-b border-white/10 px-8">
           <button
+            type="button"
             onClick={() => setOpen(false)}
             className="absolute left-4 top-4 flex size-10 items-center justify-center rounded-full bg-[#1a1a1a] text-white transition-all hover:bg-[#2a2a2a]"
             aria-label="Close Menu"

@@ -108,7 +108,7 @@ export default async function ArticlePage({ params }: Props) {
         )}
         <div 
           className="absolute inset-0 z-10 backdrop-blur-[1px]"
-          style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0.1) 100%)' }}
+          style={{ background: "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.88) 42%, rgba(0,0,0,0.42) 72%, rgba(0,0,0,0.08) 100%)" }}
         />
         
         <div className="container relative z-20 mx-auto px-4 md:px-8">
@@ -207,4 +207,3 @@ export default async function ArticlePage({ params }: Props) {
     </>
   );
 }
-

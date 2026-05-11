@@ -26,14 +26,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setMounted(true);
     const stored = (localStorage.getItem("matric-theme") as Theme) || "dark";
     setTheme(stored);
-    document.documentElement.className = stored;
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(stored);
   }, []);
 
   const toggle = useCallback(() => {
     setTheme((prev) => {
       const next = prev === "dark" ? "light" : "dark";
       localStorage.setItem("matric-theme", next);
-      document.documentElement.className = next;
+      document.documentElement.classList.remove("light", "dark");
+      document.documentElement.classList.add(next);
       return next;
     });
   }, []);

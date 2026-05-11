@@ -55,7 +55,8 @@ export default function RootLayout({
           __html: `
             (function() {
               var theme = localStorage.getItem('matric-theme') || 'dark';
-              document.documentElement.className = theme + ' no-transition';
+              document.documentElement.classList.remove('light', 'dark');
+              document.documentElement.classList.add(theme, 'no-transition');
               setTimeout(function() {
                 document.documentElement.classList.remove('no-transition');
               }, 100);
