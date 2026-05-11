@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { getIsAdmin } from "@/lib/auth";
-import { callClaudeJson, parseJsonLoose } from "@/lib/claude";
+import { callGrokJson, parseJsonLoose } from "@/lib/grok";
 
 const bodySchema = z.object({
   html: z.string().min(20),
@@ -38,10 +38,10 @@ ${instruction ? `Editor notes: ${instruction}` : ""}
 HTML:
 ${html.slice(0, 120_000)}`;
 
-    const raw = await callClaudeJson({
+    const raw = await callGrokJson({
       system,
       user,
-      maxTokens: 8192,
+      maxOutputTokens: 4096,
     });
     const data = parseJsonLoose<{ content: string; seo_notes: string[] }>(raw);
     return NextResponse.json({ success: true, data });

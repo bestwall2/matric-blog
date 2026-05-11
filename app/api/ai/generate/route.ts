@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { getIsAdmin } from "@/lib/auth";
-import { callClaudeJson, parseJsonLoose } from "@/lib/claude";
+import { callGrokJson, parseJsonLoose } from "@/lib/grok";
 
 const bodySchema = z.object({
   topic: z.string().min(3),
@@ -85,10 +85,10 @@ Return a JSON object with this exact structure:
   "seo_notes": ["List of SEO improvements made"]
 }`;
 
-    const raw = await callClaudeJson({
+    const raw = await callGrokJson({
       system: systemPrompt,
       user: userPrompt,
-      maxTokens: 8192,
+      maxOutputTokens: 4096,
     });
 
     const data = parseJsonLoose<Record<string, unknown>>(raw);

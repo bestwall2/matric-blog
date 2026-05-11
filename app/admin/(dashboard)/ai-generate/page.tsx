@@ -101,7 +101,7 @@ export default function AiGeneratePage() {
           توليد مقال بالكامل
         </h1>
         <p className="mt-2 text-sm text-neutral-400">
-          يعتمد على Claude Sonnet ويعيد JSON منظمًا يتم استيراده تلقائيًا في محرر
+          يعتمد على Grok (xAI) ويعيد JSON منظمًا يتم استيراده تلقائيًا في محرر
           المقالات.
         </p>
       </header>
