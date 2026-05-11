@@ -17,7 +17,7 @@ const body = IBM_Plex_Sans_Arabic({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
+  metadataBase: safeUrl(SITE_URL),
   title: { default: SITE_NAME, template: `%s | ${SITE_NAME}` },
   description: SITE_DESCRIPTION,
   openGraph: {
@@ -29,6 +29,14 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },
 };
+
+function safeUrl(url: string) {
+  try {
+    return new URL(url);
+  } catch {
+    return new URL("http://localhost:3000");
+  }
+}
 
 export default function RootLayout({
   children,
