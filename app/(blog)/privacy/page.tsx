@@ -16,10 +16,19 @@ export default function PrivacyPage() {
         وأدوات إعلانات تابعة لجهات خارجية مثل Google عند تفعيلها، وفقًا لإعدادات حسابك في
         AdSense وAnalytics.
       </p>
-      <ul className="list-disc space-y-3 pr-6 text-neutral-400">
-        <li>نستخدم النشرة البريدية لتخزين عنوان البريد فقط ولأغراض الإرسال الدوري.</li>
-        <li>يمكنك طلب حذف بياناتك عبر مراسلتنا من البريد الرسمي للموقع.</li>
-        <li>قد يستخدم الطرف الثالث ملفات تعريف الارتباط لقياس الأداء والعرض الإعلاني.</li>
+      <ul className="space-y-3">
+        <li className="flex items-start gap-3 rounded-xl border border-white/5 bg-white/[0.02] px-4 py-3 text-neutral-400">
+          <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#e63946]/10 text-xs text-[#e63946]">✓</span>
+          نستخدم النشرة البريدية لتخزين عنوان البريد فقط ولأغراض الإرسال الدوري.
+        </li>
+        <li className="flex items-start gap-3 rounded-xl border border-white/5 bg-white/[0.02] px-4 py-3 text-neutral-400">
+          <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#e63946]/10 text-xs text-[#e63946]">✓</span>
+          يمكنك طلب حذف بياناتك عبر مراسلتنا من البريد الرسمي للموقع.
+        </li>
+        <li className="flex items-start gap-3 rounded-xl border border-white/5 bg-white/[0.02] px-4 py-3 text-neutral-400">
+          <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#e63946]/10 text-xs text-[#e63946]">✓</span>
+          قد يستخدم الطرف الثالث ملفات تعريف الارتباط لقياس الأداء والعرض الإعلاني.
+        </li>
       </ul>
     </div>
   );
