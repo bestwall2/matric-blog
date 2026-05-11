@@ -9,7 +9,7 @@ export function ArticleGrid({
   dir?: "rtl" | "ltr";
 }) {
   return (
-    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-6 md:grid-cols-2">
       {posts.map((p) => (
         <ArticleCard key={p.id} post={p} dir={dir} />
       ))}

@@ -15,9 +15,7 @@ export default function ContactPage() {
         نموذج النشرة البريدية في الصفحة الرئيسية لتلقي التحديثات الدورية.
       </p>
       <div className="rounded-3xl border border-white/10 bg-[#141414] p-8 text-sm text-neutral-400">
-        نصيحة تشغيلية: أنشئ عنوانًا عامًا مثل{" "}
-        <span className="text-white">contact@yourdomain.com</span> ووجّهه إلى صندوق فريق
-        التحرير، ثم أضف نفس العنوان ضمن صفحة سياسة الخصوصية لطلبات GDPR / أدوات إعلانية.
+        يمكنك أيضًا استخدام نموذج النشرة البريدية في الصفحة الرئيسية للتواصل معنا.
       </div>
     </div>
   );

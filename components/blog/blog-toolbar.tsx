@@ -23,7 +23,7 @@ export function BlogToolbar({
   const sort = activeSort ?? "latest";
 
   return (
-    <div className="space-y-4 rounded-2xl border border-white/10 bg-[#141414] p-5 md:p-6">
+    <div className="space-y-4">
       <div className="flex flex-wrap gap-2">
         <SortChip
           href={`/blog${qs({
@@ -79,10 +79,10 @@ function SortChip({
     <Link
       href={href}
       className={cn(
-        "rounded-full px-4 py-2 text-sm font-medium transition",
+        "rounded-full px-5 py-2 text-sm font-medium transition-all duration-200",
         active
-          ? "bg-[#e11d48] text-white"
-          : "border border-white/10 bg-[#0a0a0a] text-neutral-300 hover:border-[#e11d48]/40"
+          ? "bg-[#e63946] text-white shadow-sm"
+          : "border border-white/10 bg-white/5 text-neutral-400 hover:border-white/20 hover:text-white"
       )}
     >
       {label}
@@ -103,10 +103,10 @@ function CategoryChip({
     <Link
       href={href}
       className={cn(
-        "rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-wide transition",
+        "rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wide transition-all duration-200",
         active
           ? "bg-white text-black"
-          : "border border-white/10 bg-transparent text-neutral-400 hover:text-white"
+          : "border border-white/10 bg-transparent text-neutral-500 hover:border-white/20 hover:text-white"
       )}
     >
       {label}

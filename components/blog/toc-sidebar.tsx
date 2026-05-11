@@ -72,7 +72,7 @@ export function TocSidebar() {
   return (
     <aside className="hidden lg:block">
       <div className="sticky top-28 rounded-2xl border border-white/10 bg-[#141414] p-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#e11d48]">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#e63946]">
           المحتويات
         </p>
         <nav className="mt-4 space-y-2 text-sm">
@@ -83,7 +83,7 @@ export function TocSidebar() {
               className={cn(
                 "block border-r-2 border-transparent pr-3 text-neutral-400 transition hover:text-white",
                 it.level === 3 && "mr-3 text-[13px]",
-                active === it.id && "border-[#e11d48] text-white"
+                active === it.id && "border-[#e63946] text-white"
               )}
             >
               {it.text}

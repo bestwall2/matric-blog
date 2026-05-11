@@ -30,22 +30,23 @@ export function SiteHeader() {
   return (
     <>
       <DirBridge dir={dir} />
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0a0a0a]/85 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 md:px-6">
+      <header className="glass glass-border fixed top-0 z-50 w-full">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-6">
           <Link href="/" className="group flex items-center gap-2">
-            <span className="font-heading text-xl font-semibold tracking-tight text-white md:text-2xl">
-              Matric<span className="text-[#e11d48]">Blog</span>
+            <span className="font-heading text-xl font-bold tracking-tight text-white md:text-2xl">
+              Matric<span className="text-[#e63946]">Blog</span>
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-6 md:flex">
+          <nav className="hidden items-center gap-1 md:flex">
             {links.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
                 className={cn(
-                  "text-sm font-medium text-neutral-400 transition hover:text-white",
-                  pathname === l.href && "text-[#e11d48]"
+                  "relative px-4 py-2 text-sm font-medium text-neutral-400 transition-colors hover:text-white",
+                  "after:absolute after:bottom-0 after:left-1/2 after:h-[2px] after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-[#e63946] after:transition-all after:duration-300 hover:after:w-4/5",
+                  pathname === l.href && "text-[#e63946] after:w-4/5"
                 )}
               >
                 {dir === "rtl" ? l.label : l.labelEn}
@@ -56,14 +57,21 @@ export function SiteHeader() {
           <div className="flex items-center gap-2">
             <Button
               type="button"
-              variant="outline"
+              variant="ghost"
               size="sm"
-              className="hidden border-white/15 bg-white/5 text-neutral-200 hover:bg-white/10 md:inline-flex"
+              className="hidden border border-white/10 bg-white/5 text-neutral-300 hover:bg-white/10 md:inline-flex"
               onClick={() => setDir(dir === "rtl" ? "ltr" : "rtl")}
             >
-              <Languages className="mr-2 size-4" />
+              <Languages className="ml-2 size-4" />
               {dir === "rtl" ? "English" : "العربية"}
             </Button>
+
+            <Link
+              href="/blog"
+              className="hidden rounded-full bg-[#e63946] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[#c1121f] md:inline-block"
+            >
+              ابدأ القراءة
+            </Link>
 
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger
@@ -77,11 +85,11 @@ export function SiteHeader() {
               </SheetTrigger>
               <SheetContent
                 side={dir === "rtl" ? "right" : "left"}
-                className="border-white/10 bg-[#0a0a0a] text-white"
+                className="border-white/10 bg-[#0a0a0a]/95 backdrop-blur-xl text-white"
               >
                 <SheetHeader>
                   <SheetTitle className="font-heading text-left text-white">
-                    Menu
+                    القائمة
                   </SheetTitle>
                 </SheetHeader>
                 <div className="mt-8 flex flex-col gap-4">
@@ -91,8 +99,8 @@ export function SiteHeader() {
                       href={l.href}
                       onClick={() => setOpen(false)}
                       className={cn(
-                        "text-lg text-neutral-300",
-                        pathname === l.href && "text-[#e11d48]"
+                        "text-lg font-medium text-neutral-300 transition-colors hover:text-white",
+                        pathname === l.href && "text-[#e63946]"
                       )}
                     >
                       {dir === "rtl" ? l.label : l.labelEn}
@@ -100,10 +108,10 @@ export function SiteHeader() {
                   ))}
                   <Button
                     variant="outline"
-                    className="mt-4 border-white/15"
+                    className="mt-4 border-white/15 text-white"
                     onClick={() => setDir(dir === "rtl" ? "ltr" : "rtl")}
                   >
-                    <Languages className="mr-2 size-4" />
+                    <Languages className="ml-2 size-4" />
                     {dir === "rtl" ? "English" : "العربية"}
                   </Button>
                 </div>

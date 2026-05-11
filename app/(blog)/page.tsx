@@ -1,14 +1,10 @@
 import { HeroFeatured } from "@/components/blog/hero-featured";
 import { NewsletterSection } from "@/components/blog/newsletter-section";
-import { StatsBar } from "@/components/blog/stats-bar";
 import { HomeCategoryFeed } from "@/components/blog/home-category-feed";
 import { createServerSupabase } from "@/lib/supabase/server";
 import {
-  countCategories,
-  countPublicPosts,
   fetchCategories,
   fetchLatestPublished,
-  sumPublishedViews,
 } from "@/lib/posts";
 
 export const dynamic = "force-dynamic";
@@ -16,12 +12,9 @@ export const dynamic = "force-dynamic";
 export default async function HomePage() {
   try {
     const supabase = await createServerSupabase();
-    const [categories, latest, articles, catsCount, views] = await Promise.all([
+    const [categories, latest] = await Promise.all([
       fetchCategories(supabase),
       fetchLatestPublished(supabase, 13),
-      countPublicPosts(supabase),
-      countCategories(supabase),
-      sumPublishedViews(supabase),
     ]);
 
     const featured = latest[0];
@@ -34,8 +27,6 @@ export default async function HomePage() {
             لا توجد مقالات منشورة بعد. أنشئ محتوى من لوحة الإدارة عند جاهزية Supabase.
           </div>
         )}
-
-        <StatsBar articles={articles} categories={catsCount} views={views} />
 
         <div className="space-y-4">
           <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">

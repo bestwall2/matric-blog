@@ -10,8 +10,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-body)", "IBM Plex Sans Arabic", "system-ui", "sans-serif"],
-        heading: ["var(--font-heading)", "Playfair Display", "Georgia", "serif"],
+        sans: ["var(--font-body)", "Inter", "system-ui", "sans-serif"],
+        heading: ["var(--font-heading)", "Cairo", "system-ui", "sans-serif"],
       },
       colors: {
         border: "var(--border)",
@@ -45,8 +45,8 @@ const config: Config = {
           foreground: "var(--card-foreground)",
         },
         brand: {
-          DEFAULT: "#e11d48",
-          muted: "#be123c",
+          DEFAULT: "#e63946",
+          muted: "#c1121f",
         },
         surface: "#141414",
         ink: "#0a0a0a",

@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { Playfair_Display, IBM_Plex_Sans_Arabic } from "next/font/google";
+import { Cairo, Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/constants";
 
-const heading = Playfair_Display({
-  subsets: ["latin"],
+const heading = Cairo({
+  subsets: ["arabic", "latin"],
   variable: "--font-heading",
-  weight: ["600", "700"],
+  weight: ["600", "700", "800", "900"],
 });
 
-const body = IBM_Plex_Sans_Arabic({
+const body = Cairo({
   subsets: ["arabic", "latin"],
   variable: "--font-body",
   weight: ["400", "500", "600", "700"],
@@ -50,7 +50,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`dark ${heading.variable} ${body.variable}`}
     >
-      <body className="min-h-screen bg-[#0a0a0a] antialiased text-neutral-100">
+      <body className="min-h-screen bg-[#0a0a0a] antialiased text-neutral-100 selection:bg-[#e63946]/30">
         <Providers>{children}</Providers>
       </body>
     </html>
