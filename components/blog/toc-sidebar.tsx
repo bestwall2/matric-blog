@@ -70,27 +70,28 @@ export function TocSidebar() {
   if (!items.length) return null;
 
   return (
-    <aside className="hidden lg:block">
-      <div className="sticky top-28 rounded-2xl border border-white/10 bg-[#141414] p-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#e63946]">
-          المحتويات
-        </p>
-        <nav className="mt-4 space-y-2 text-sm">
-          {items.map((it) => (
-            <a
-              key={it.id}
-              href={`#${it.id}`}
-              className={cn(
-                "block border-r-2 border-transparent pr-3 text-neutral-400 transition hover:text-white",
-                it.level === 3 && "mr-3 text-[13px]",
-                active === it.id && "border-[#e63946] text-white"
-              )}
-            >
-              {it.text}
-            </a>
-          ))}
-        </nav>
-      </div>
-    </aside>
+    <div className="rounded-[12px] bg-[var(--bg-card)] border border-[var(--border)] p-5">
+      <p className="font-heading text-[14px] font-bold text-[var(--text-primary)] mb-4">
+        محتويات المقال
+      </p>
+      <nav className="space-y-3 text-[14px]">
+        {items.map((it) => (
+          <a
+            key={it.id}
+            href={`#${it.id}`}
+            className={cn(
+              "block transition-all duration-200",
+              it.level === 3 ? "pr-4 text-[13px]" : "font-medium",
+              active === it.id 
+                ? "text-[#e63946] pr-2 border-r-2 border-[#e63946]" 
+                : "text-[var(--text-muted)] hover:text-[var(--text-primary)] pr-2 border-r-2 border-transparent"
+            )}
+          >
+            {it.text}
+          </a>
+        ))}
+      </nav>
+    </div>
   );
 }
+

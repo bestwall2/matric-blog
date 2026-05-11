@@ -37,37 +37,44 @@ export default async function BlogListingPage({
   };
 
   return (
-    <div className="mx-auto max-w-6xl space-y-10 px-4 py-12 md:px-6">
-      <header className="space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#e11d48]">
-          الأرشيف
-        </p>
-        <h1 className="font-heading text-4xl text-white md:text-5xl">
-          جميع المقالات
-        </h1>
-        <p className="max-w-2xl text-neutral-400">
+    <div className="mx-auto w-full max-w-7xl px-4 py-32 md:px-8">
+      <header className="space-y-6">
+        <div>
+          <h1 className="font-heading text-4xl font-black text-[var(--text-primary)] md:text-5xl">
+            جميع المقالات
+          </h1>
+          <div className="mt-2 h-1 w-20 bg-[#e63946]" />
+        </div>
+        <p className="max-w-2xl text-[16px] leading-relaxed text-[var(--text-muted)]">
           أدلة تقنية، أخبار البث، وتحليلات كرة القدم بلغة عربية واضحة ومتوافقة مع
           سياسات الإعلانات وجودة البحث.
         </p>
       </header>
 
-      <BlogToolbar
-        categories={categories}
-        activeCategory={category}
-        activeSort={sort}
-      />
+      <div className="mt-12">
+        <BlogToolbar
+          categories={categories}
+          activeCategory={category}
+          activeSort={sort}
+        />
+      </div>
 
-      <BlogListClient posts={posts} />
+      <div className="mt-10">
+        <BlogListClient posts={posts} />
+      </div>
 
-      <Pagination
-        page={page}
-        totalPages={totalPages}
-        basePath="/blog"
-        query={{
-          sort: query.sort,
-          category: query.category,
-        }}
-      />
+      <div className="mt-16">
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          basePath="/blog"
+          query={{
+            sort: query.sort,
+            category: query.category,
+          }}
+        />
+      </div>
     </div>
   );
 }
+

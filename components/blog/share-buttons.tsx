@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Copy, MessageCircle, Share2 } from "lucide-react";
+import { MessageCircle, Share2, Copy, Send } from "lucide-react";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 export function ShareButtons({
   url,
@@ -15,59 +15,25 @@ export function ShareButtons({
   const text = encodeURIComponent(title);
 
   return (
-    <div className="flex flex-wrap gap-2">
-      <Button
-        type="button"
-        size="sm"
-        variant="outline"
-        className="border-white/15 bg-white/5 text-neutral-200 hover:bg-white/10"
-        asChild
-      >
-        <a
-          href={`https://twitter.com/intent/tweet?url=${encoded}&text=${text}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          X / Twitter
-        </a>
-      </Button>
-      <Button
-        type="button"
-        size="sm"
-        variant="outline"
-        className="border-white/15 bg-white/5 text-neutral-200 hover:bg-white/10"
-        asChild
-      >
-        <a
-          href={`https://wa.me/?text=${text}%20${encoded}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <MessageCircle className="mr-1 size-4" />
-          WhatsApp
-        </a>
-      </Button>
-      <Button
-        type="button"
-        size="sm"
-        variant="outline"
-        className="border-white/15 bg-white/5 text-neutral-200 hover:bg-white/10"
-        asChild
-      >
-        <a
-          href={`https://www.facebook.com/sharer/sharer.php?u=${encoded}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Share2 className="mr-1 size-4" />
-          Facebook
-        </a>
-      </Button>
-      <Button
-        type="button"
-        size="sm"
-        variant="outline"
-        className="border-white/15 bg-white/5 text-neutral-200 hover:bg-white/10"
+    <div className="flex flex-wrap gap-4">
+      <ShareCircle
+        href={`https://twitter.com/intent/tweet?url=${encoded}&text=${text}`}
+        icon={<Send className="size-5" />}
+        label="X"
+      />
+      <ShareCircle
+        href={`https://wa.me/?text=${text}%20${encoded}`}
+        icon={<MessageCircle className="size-5" />}
+        label="WhatsApp"
+        color="hover:bg-emerald-600"
+      />
+      <ShareCircle
+        href={`https://www.facebook.com/sharer/sharer.php?u=${encoded}`}
+        icon={<Share2 className="size-5" />}
+        label="Facebook"
+        color="hover:bg-blue-700"
+      />
+      <button
         onClick={async () => {
           try {
             await navigator.clipboard.writeText(url);
@@ -76,10 +42,42 @@ export function ShareButtons({
             toast.error("تعذّر النسخ");
           }
         }}
+        className={cn(
+          "flex size-12 items-center justify-center rounded-full bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-primary)] transition-all hover:bg-[var(--bg-elevated)] hover:scale-110 active:scale-95"
+        )}
+        title="نسخ الرابط"
       >
-        <Copy className="mr-1 size-4" />
-        نسخ الرابط
-      </Button>
+        <Copy className="size-5" />
+      </button>
     </div>
   );
 }
+
+function ShareCircle({
+  href,
+  icon,
+  label,
+  color = "hover:bg-[#e63946]",
+}: {
+  href: string;
+  icon: React.ReactNode;
+  label: string;
+  color?: string;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={cn(
+        "flex size-12 items-center justify-center rounded-full bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-primary)] transition-all hover:scale-110 active:scale-95",
+        color
+      )}
+      title={label}
+    >
+      {icon}
+    </a>
+  );
+}
+
+

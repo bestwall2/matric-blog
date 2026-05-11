@@ -23,27 +23,10 @@ export function BlogToolbar({
   const sort = activeSort ?? "latest";
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-wrap gap-2">
-        <SortChip
-          href={`/blog${qs({
-            sort: undefined,
-            category: activeCategory ?? undefined,
-          })}`}
-          active={sort === "latest"}
-          label="الأحدث"
-        />
-        <SortChip
-          href={`/blog${qs({
-            sort: "views",
-            category: activeCategory ?? undefined,
-          })}`}
-          active={sort === "views"}
-          label="الأكثر مشاهدة"
-        />
-      </div>
-      <div className="flex flex-wrap gap-2">
-        <CategoryChip
+    <div className="flex flex-col gap-6 py-4">
+      {/* Category Pills */}
+      <div className="flex w-full items-center gap-3 overflow-x-auto pb-2 scrollbar-hide">
+        <CategoryPill
           href={`/blog${qs({
             sort: sort === "latest" ? undefined : "views",
           })}`}
@@ -51,7 +34,7 @@ export function BlogToolbar({
           label="كل التصنيفات"
         />
         {categories.map((c) => (
-          <CategoryChip
+          <CategoryPill
             key={c.id}
             href={`/blog${qs({
               category: c.slug,
@@ -62,11 +45,51 @@ export function BlogToolbar({
           />
         ))}
       </div>
+
+      {/* Sort Options */}
+      <div className="flex items-center gap-6 border-b border-[var(--border)] pb-2">
+        <button
+          className={cn(
+            "relative pb-2 text-[15px] font-bold transition-colors",
+            sort === "latest" ? "text-[var(--text-primary)]" : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+          )}
+        >
+          <Link
+            href={`/blog${qs({
+              sort: undefined,
+              category: activeCategory ?? undefined,
+            })}`}
+          >
+            الأحدث
+          </Link>
+          {sort === "latest" && (
+            <div className="absolute bottom-0 left-0 h-0.5 w-full bg-[#e63946]" />
+          )}
+        </button>
+        <button
+          className={cn(
+            "relative pb-2 text-[15px] font-bold transition-colors",
+            sort === "views" ? "text-[var(--text-primary)]" : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+          )}
+        >
+          <Link
+            href={`/blog${qs({
+              sort: "views",
+              category: activeCategory ?? undefined,
+            })}`}
+          >
+            الأكثر مشاهدة
+          </Link>
+          {sort === "views" && (
+            <div className="absolute bottom-0 left-0 h-0.5 w-full bg-[#e63946]" />
+          )}
+        </button>
+      </div>
     </div>
   );
 }
 
-function SortChip({
+function CategoryPill({
   href,
   active,
   label,
@@ -79,10 +102,10 @@ function SortChip({
     <Link
       href={href}
       className={cn(
-        "rounded-full px-5 py-2 text-sm font-medium transition-all duration-200",
+        "flex h-9 min-w-fit items-center justify-center rounded-full px-6 text-[14px] font-bold transition-all duration-150",
         active
-          ? "bg-[#e63946] text-white shadow-sm"
-          : "border border-white/10 bg-white/5 text-neutral-400 hover:border-white/20 hover:text-white"
+          ? "bg-[#e63946] text-white shadow-[0_2px_10px_rgba(230,57,70,0.3)]"
+          : "border border-[var(--border)] bg-[var(--bg-elevated)] text-[var(--text-muted)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)]"
       )}
     >
       {label}
@@ -90,26 +113,3 @@ function SortChip({
   );
 }
 
-function CategoryChip({
-  href,
-  active,
-  label,
-}: {
-  href: string;
-  active: boolean;
-  label: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className={cn(
-        "rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wide transition-all duration-200",
-        active
-          ? "bg-white text-black"
-          : "border border-white/10 bg-transparent text-neutral-500 hover:border-white/20 hover:text-white"
-      )}
-    >
-      {label}
-    </Link>
-  );
-}

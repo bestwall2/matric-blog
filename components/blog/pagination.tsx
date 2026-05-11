@@ -35,7 +35,7 @@ export function Pagination({
   });
 
   return (
-    <nav className="flex flex-wrap items-center justify-center gap-2 pt-10">
+    <nav className="flex flex-wrap items-center justify-center gap-3 pt-10">
       <PaginationLink
         disabled={page <= 1}
         href={href(page - 1)}
@@ -43,7 +43,7 @@ export function Pagination({
       />
       {compact.map((p, idx) =>
         p === -1 ? (
-          <span key={`e-${idx}`} className="px-2 text-neutral-600">
+          <span key={`e-${idx}`} className="px-2 text-[var(--text-faint)]">
             …
           </span>
         ) : (
@@ -51,10 +51,10 @@ export function Pagination({
             key={p}
             href={href(p)}
             className={cn(
-              "flex size-10 items-center justify-center rounded-full border text-sm transition",
+              "flex size-10 items-center justify-center rounded-full border text-[14px] font-bold transition-all duration-200",
               p === page
-                ? "border-[#e11d48] bg-[#e11d48] text-white"
-                : "border-white/10 bg-[#141414] text-neutral-300 hover:border-[#e11d48]/50"
+                ? "border-[#e63946] bg-[#e63946] text-white shadow-[0_2px_10px_rgba(230,57,70,0.3)]"
+                : "border-[var(--border)] bg-[var(--bg-card)] text-[var(--text-muted)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)]"
             )}
           >
             {p}
@@ -81,7 +81,7 @@ function PaginationLink({
 }) {
   if (disabled) {
     return (
-      <span className="rounded-full border border-white/5 px-4 py-2 text-sm text-neutral-600">
+      <span className="rounded-full border border-[var(--border)] px-6 py-2 text-[14px] font-bold text-[var(--text-faint)]">
         {label}
       </span>
     );
@@ -89,9 +89,10 @@ function PaginationLink({
   return (
     <Link
       href={href}
-      className="rounded-full border border-white/15 bg-[#141414] px-4 py-2 text-sm text-neutral-200 hover:border-[#e11d48]/40"
+      className="rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-6 py-2 text-[14px] font-bold text-[var(--text-primary)] transition-all hover:border-[var(--border-hover)] hover:bg-[var(--bg-elevated)]"
     >
       {label}
     </Link>
   );
 }
+

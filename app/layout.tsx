@@ -7,13 +7,13 @@ import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/constants";
 const heading = Cairo({
   subsets: ["arabic", "latin"],
   variable: "--font-heading",
-  weight: ["600", "700", "800", "900"],
+  weight: ["400", "600", "700", "900"],
 });
 
 const body = Cairo({
   subsets: ["arabic", "latin"],
   variable: "--font-body",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600", "700", "900"],
 });
 
 export const metadata: Metadata = {
@@ -48,9 +48,25 @@ export default function RootLayout({
       lang="ar"
       dir="rtl"
       suppressHydrationWarning
-      className={`dark ${heading.variable} ${body.variable}`}
+      className={`${heading.variable} ${body.variable}`}
     >
-      <body className="min-h-screen bg-[#0a0a0a] antialiased text-neutral-100 selection:bg-[#e63946]/30">
+      <head>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              var theme = localStorage.getItem('matric-theme') || 'dark';
+              document.documentElement.classList.remove('light', 'dark');
+              document.documentElement.classList.add(theme, 'no-transition');
+              setTimeout(function() {
+                document.documentElement.classList.remove('no-transition');
+              }, 100);
+            })();
+          `
+        }} />
+      </head>
+      <body
+        className="min-h-screen bg-[var(--bg-primary)] antialiased text-[var(--text-primary)] selection:bg-[#e63946]/30"
+      >
         <Providers>{children}</Providers>
       </body>
     </html>

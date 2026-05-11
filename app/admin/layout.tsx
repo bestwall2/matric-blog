@@ -4,7 +4,7 @@ export default function AdminRootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-[#050505] text-neutral-100 antialiased">
+    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased">
       {children}
     </div>
   );

@@ -17,11 +17,11 @@ export function StatsBar({
   ];
 
   return (
-    <div className="grid gap-4 rounded-2xl border border-white/10 bg-[#141414] p-6 md:grid-cols-3">
+    <div className="grid gap-4 rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-6 md:grid-cols-3">
       {items.map((it) => (
         <div key={it.label} className="text-center md:text-start">
-          <p className="font-heading text-3xl text-white">{it.value}</p>
-          <p className="mt-1 text-xs uppercase tracking-wider text-neutral-500">
+          <p className="font-heading text-3xl text-[var(--text-primary)]">{it.value}</p>
+          <p className="mt-1 text-xs uppercase tracking-wider text-[var(--text-muted)]">
             {it.label}
           </p>
         </div>

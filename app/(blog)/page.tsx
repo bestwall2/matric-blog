@@ -21,32 +21,44 @@ export default async function HomePage() {
     const gridPosts = featured ? latest.slice(1, 13) : latest.slice(0, 12);
 
     return (
-      <div className="mx-auto max-w-6xl space-y-16 px-4 pb-20 pt-8 md:px-6 md:pt-12">
-        {featured ? <HeroFeatured post={featured} /> : (
-          <div className="rounded-3xl border border-white/10 bg-[#141414] p-10 text-center text-neutral-400">
-            لا توجد مقالات منشورة بعد. أنشئ محتوى من لوحة الإدارة عند جاهزية Supabase.
+      <main className="w-full pb-20">
+        {featured ? (
+          <HeroFeatured post={featured} />
+        ) : (
+          <div className="mx-auto max-w-7xl px-4 pt-32">
+            <div className="rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-20 text-center text-[var(--text-muted)]">
+              لا توجد مقالات منشورة بعد.
+            </div>
           </div>
         )}
 
-        <div className="space-y-4">
-          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-            <h2 className="font-heading text-3xl text-white md:text-4xl">
-              أحدث المقالات
-            </h2>
-            <p className="text-sm text-neutral-500">
-              تصفّح حسب التصنيف — تصميم شبيه بالمجلات الرياضية الرقمية.
-            </p>
+        <div className="mx-auto max-w-7xl px-4 md:px-8">
+          <div className="mt-20 space-y-10">
+            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+              <div>
+                <h2 className="font-heading text-3xl font-black text-[var(--text-primary)] md:text-[32px]">
+                  أحدث المقالات
+                </h2>
+                <div className="mt-2 h-1 w-20 bg-[#e63946]" />
+              </div>
+              <p className="text-[15px] text-[var(--text-muted)]">
+                تصفّح حسب التصنيف — تجربة تحريرية متميزة.
+              </p>
+            </div>
+            
+            <HomeCategoryFeed categories={categories} posts={gridPosts} />
           </div>
-          <HomeCategoryFeed categories={categories} posts={gridPosts} />
-        </div>
 
-        <NewsletterSection />
-      </div>
+          <div className="mt-32">
+            <NewsletterSection />
+          </div>
+        </div>
+      </main>
     );
   } catch {
     return (
       <div className="mx-auto max-w-2xl px-4 py-24 text-center">
-        <h1 className="font-heading text-4xl text-white">تهيئة المشروع</h1>
+        <h1 className="font-heading text-4xl text-[var(--text-primary)]">تهيئة المشروع</h1>
         <p className="mt-4 text-neutral-400">
           أضف متغيرات البيئة الخاصة بـ Supabase في{" "}
           <code className="rounded bg-white/10 px-2 py-1 text-sm text-[#e11d48]">
@@ -58,3 +70,4 @@ export default async function HomePage() {
     );
   }
 }
+

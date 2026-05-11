@@ -3,123 +3,183 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Languages, Menu } from "lucide-react";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
-import { useState } from "react";
-import { DirBridge } from "@/components/layout/dir-bridge";
+import { useState, useEffect } from "react";
+import { X, ArrowLeft } from "lucide-react";
+import { ThemeToggleDesktop, ThemeToggleMobile } from "@/components/theme/theme-toggle";
 
 const links = [
-  { href: "/", label: "الرئيسية", labelEn: "Home" },
-  { href: "/blog", label: "المقالات", labelEn: "Articles" },
-  { href: "/about", label: "من نحن", labelEn: "About" },
-  { href: "/contact", label: "اتصل بنا", labelEn: "Contact" },
+  { href: "/", label: "الرئيسية" },
+  { href: "/blog", label: "المقالات" },
+  { href: "/about", label: "من نحن" },
+  { href: "/contact", label: "اتصل بنا" },
 ];
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const [dir, setDir] = useState<"rtl" | "ltr">("rtl");
   const [open, setOpen] = useState(false);
 
+  // Lock body scroll when drawer is open
+  useEffect(() => {
+    if (!open) return;
+
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+    };
+  }, [open]);
+
+  // Close on Escape
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, []);
+
   return (
-    <>
-      <DirBridge dir={dir} />
-      <header className="glass glass-border fixed top-0 z-50 w-full">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-6">
-          <Link href="/" className="group flex items-center gap-2">
-            <span className="font-heading text-xl font-bold tracking-tight text-white md:text-2xl">
-              Matric<span className="text-[#e63946]">Blog</span>
-            </span>
+    <header className="glass fixed top-0 z-[1000] w-full border-b border-[var(--border)] h-16 md:z-[200]">
+      <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4 md:px-8">
+        {/* Logo (Right in RTL) */}
+        <Link href="/" className="group flex items-center gap-2">
+          <div className="size-3 bg-[#e63946] transition-transform group-hover:rotate-45" />
+          <span className="font-heading text-xl font-black tracking-tight text-white md:text-2xl">
+            MatricBlog
+          </span>
+        </Link>
+
+        {/* Nav Links (Middle - Desktop) */}
+        <nav className="hidden items-center gap-8 md:flex">
+          {links.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className={cn(
+                "text-[15px] font-medium transition-all duration-300",
+                pathname === l.href
+                  ? "text-white"
+                  : "text-white/70 hover:text-white"
+              )}
+            >
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* CTA, Theme Toggle & Mobile Trigger (Left in RTL) */}
+        <div className="flex items-center gap-3">
+          <div className="hidden md:block">
+            <ThemeToggleDesktop />
+          </div>
+          <Link
+            href="/blog"
+            className="hidden rounded-full bg-[#e63946] px-6 py-2 text-[14px] font-bold text-white transition-all hover:bg-[#c1121f] hover:scale-105 active:scale-95 md:inline-block"
+          >
+            ابدأ القراءة
           </Link>
 
-          <nav className="hidden items-center gap-1 md:flex">
-            {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className={cn(
-                  "relative px-4 py-2 text-sm font-medium text-neutral-400 transition-colors hover:text-white",
-                  "after:absolute after:bottom-0 after:left-1/2 after:h-[2px] after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-[#e63946] after:transition-all after:duration-300 hover:after:w-4/5",
-                  pathname === l.href && "text-[#e63946] after:w-4/5"
-                )}
-              >
-                {dir === "rtl" ? l.label : l.labelEn}
-              </Link>
-            ))}
-          </nav>
+          {/* Hamburger Trigger */}
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            className="relative z-[70] flex size-11 items-center justify-center md:hidden"
+            aria-label="Open Menu"
+            aria-expanded={open}
+          >
+            <div className="relative flex size-6 flex-col items-center justify-center gap-1.5">
+              <span 
+                className="h-0.5 w-6 rounded-full bg-white transition-all duration-300"
+              />
+              <span 
+                className="h-0.5 w-6 rounded-full bg-white transition-all duration-300"
+              />
+              <span 
+                className="h-0.5 w-6 rounded-full bg-white transition-all duration-300"
+              />
+            </div>
+          </button>
+        </div>
+      </div>
 
-          <div className="flex items-center gap-2">
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              className="hidden border border-white/10 bg-white/5 text-neutral-300 hover:bg-white/10 md:inline-flex"
-              onClick={() => setDir(dir === "rtl" ? "ltr" : "rtl")}
-            >
-              <Languages className="ml-2 size-4" />
-              {dir === "rtl" ? "English" : "العربية"}
-            </Button>
+      {/* Mobile Drawer Overlay */}
+      {open && (
+        <div 
+          className="fixed inset-0 z-[1100] bg-black/75 backdrop-blur-[4px] transition-opacity duration-300"
+          onClick={() => setOpen(false)}
+        />
+      )}
 
-            <Link
-              href="/blog"
-              className="hidden rounded-full bg-[#e63946] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[#c1121f] md:inline-block"
-            >
-              ابدأ القراءة
-            </Link>
-
-            <Sheet open={open} onOpenChange={setOpen}>
-              <SheetTrigger
-                className={cn(
-                  buttonVariants({ variant: "ghost", size: "icon" }),
-                  "text-white md:hidden"
-                )}
-                aria-label="Menu"
-              >
-                <Menu className="size-5" />
-              </SheetTrigger>
-              <SheetContent
-                side={dir === "rtl" ? "right" : "left"}
-                className="border-white/10 bg-[#0a0a0a]/95 backdrop-blur-xl text-white"
-              >
-                <SheetHeader>
-                  <SheetTitle className="font-heading text-left text-white">
-                    القائمة
-                  </SheetTitle>
-                </SheetHeader>
-                <div className="mt-8 flex flex-col gap-4">
-                  {links.map((l) => (
-                    <Link
-                      key={l.href}
-                      href={l.href}
-                      onClick={() => setOpen(false)}
-                      className={cn(
-                        "text-lg font-medium text-neutral-300 transition-colors hover:text-white",
-                        pathname === l.href && "text-[#e63946]"
-                      )}
-                    >
-                      {dir === "rtl" ? l.label : l.labelEn}
-                    </Link>
-                  ))}
-                  <Button
-                    variant="outline"
-                    className="mt-4 border-white/15 text-white"
-                    onClick={() => setDir(dir === "rtl" ? "ltr" : "rtl")}
-                  >
-                    <Languages className="ml-2 size-4" />
-                    {dir === "rtl" ? "English" : "العربية"}
-                  </Button>
-                </div>
-              </SheetContent>
-            </Sheet>
+      {/* Mobile Drawer Content */}
+      <div 
+        className={cn(
+          "fixed inset-y-0 right-0 z-[1200] w-[85%] max-w-[320px] shadow-[var(--shadow-card)] border-l border-white/10 transition-transform duration-[0.35s] cubic-bezier(0.32, 0.72, 0, 1) md:hidden flex flex-col bg-[#050505] opacity-100",
+          open ? "translate-x-0" : "translate-x-full"
+        )}
+      >
+        {/* Drawer Header */}
+        <div className="relative flex h-[120px] flex-col justify-center border-b border-white/10 px-8">
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            className="absolute left-4 top-4 flex size-10 items-center justify-center rounded-full bg-[#1a1a1a] text-white transition-all hover:bg-[#2a2a2a]"
+            aria-label="Close Menu"
+          >
+            <X className="size-5" />
+          </button>
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center gap-2">
+              <div className="size-3 bg-[#e63946]" />
+              <span className="font-heading text-2xl font-black text-white">MatricBlog</span>
+            </div>
+            <span className="text-[13px] text-white/50">مرحباً بك في MatricBlog</span>
           </div>
         </div>
-      </header>
-    </>
+
+        {/* Navigation Links */}
+        <nav className="flex flex-col py-2">
+          {links.map((l, index) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              onClick={() => setOpen(false)}
+              className={cn(
+                "group relative flex h-16 items-center justify-between border-b border-[var(--border)] px-8 transition-all duration-200",
+                pathname === l.href
+                  ? "bg-[var(--accent)]/10 text-[var(--accent)] border-r-[3px] border-[var(--accent)]"
+                  : "text-white hover:bg-white/10 hover:text-white",
+                open ? `animate-stagger-${index + 1}` : ""
+              )}
+            >
+              <span className="font-heading text-lg font-semibold">{l.label}</span>
+              <ArrowLeft className={cn(
+                "size-4 text-[var(--accent)] transition-all duration-300",
+                pathname === l.href ? "opacity-100 translate-x-0" : "opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"
+              )} />
+            </Link>
+          ))}
+        </nav>
+
+        {/* Mobile Theme Toggle */}
+        <div className="mt-auto">
+          <ThemeToggleMobile />
+        </div>
+
+        {/* Drawer Footer */}
+        <div className="border-t border-white/10 p-8">
+          <Link
+            href="/blog"
+            onClick={() => setOpen(false)}
+            className="flex h-12 w-full items-center justify-center rounded-xl bg-[#e63946] font-heading text-[16px] font-bold text-white shadow-[0_4px_20px_rgba(230,57,70,0.4)] transition-all hover:bg-[#c1121f] hover:scale-[0.98] active:scale-95"
+          >
+            ابدأ القراءة
+          </Link>
+        </div>
+      </div>
+    </header>
   );
 }

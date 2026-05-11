@@ -21,16 +21,16 @@ export function HomeCategoryFeed({
   }, [posts, active]);
 
   return (
-    <section className="space-y-6">
-      <div className="flex flex-wrap gap-2">
+    <section className="space-y-10">
+      <div className="flex w-full items-center gap-3 overflow-x-auto pb-2 scrollbar-hide">
         <button
           type="button"
           onClick={() => setActive(null)}
           className={cn(
-            "rounded-full px-5 py-2 text-sm font-medium transition-all duration-200",
+            "flex h-9 min-w-fit items-center justify-center rounded-full px-6 text-[14px] font-bold transition-all duration-150",
             active === null
-              ? "bg-[#e63946] text-white shadow-sm"
-              : "border border-white/10 bg-white/5 text-neutral-400 hover:border-white/20 hover:text-white"
+              ? "bg-[#e63946] text-white shadow-[0_2px_10px_rgba(230,57,70,0.3)]"
+              : "border border-[var(--border)] bg-[var(--bg-elevated)] text-[var(--text-muted)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)]"
           )}
         >
           الكل
@@ -41,10 +41,10 @@ export function HomeCategoryFeed({
             type="button"
             onClick={() => setActive(c.slug)}
             className={cn(
-              "rounded-full px-5 py-2 text-sm font-medium transition-all duration-200",
+              "flex h-9 min-w-fit items-center justify-center rounded-full px-6 text-[14px] font-bold transition-all duration-150",
               active === c.slug
-                ? "bg-[#e63946] text-white shadow-sm"
-                : "border border-white/10 bg-white/5 text-neutral-400 hover:border-white/20 hover:text-white"
+                ? "bg-[#e63946] text-white shadow-[0_2px_10px_rgba(230,57,70,0.3)]"
+                : "border border-[var(--border)] bg-[var(--bg-elevated)] text-[var(--text-muted)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)]"
             )}
           >
             {c.name_ar?.trim() ? c.name_ar : c.name}
@@ -55,3 +55,4 @@ export function HomeCategoryFeed({
     </section>
   );
 }
+

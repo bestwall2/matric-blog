@@ -10,8 +10,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-body)", "Inter", "system-ui", "sans-serif"],
-        heading: ["var(--font-heading)", "Cairo", "system-ui", "sans-serif"],
+        sans: ["Cairo", "var(--font-body)", "system-ui", "sans-serif"],
+        heading: ["Cairo", "var(--font-heading)", "system-ui", "sans-serif"],
       },
       colors: {
         border: "var(--border)",
@@ -48,8 +48,17 @@ const config: Config = {
           DEFAULT: "#e63946",
           muted: "#c1121f",
         },
-        surface: "#141414",
-        ink: "#0a0a0a",
+        "bg-primary": "var(--bg-primary)",
+        "bg-card": "var(--bg-card)",
+        "bg-elevated": "var(--bg-elevated)",
+        "bg-input": "var(--bg-input)",
+        "text-primary": "var(--text-primary)",
+        "text-muted": "var(--text-muted)",
+        "text-faint": "var(--text-faint)",
+        "border-custom": "var(--border)",
+        "border-hover": "var(--border-hover)",
+        overlay: "var(--overlay)",
+        "navbar-bg": "var(--navbar-bg)",
       },
       keyframes: {
         gradientShift: {
