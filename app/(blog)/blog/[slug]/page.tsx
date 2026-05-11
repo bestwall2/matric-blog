@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArticleGrid } from "@/components/blog/article-grid";
 import { BackToTop } from "@/components/blog/back-to-top";
@@ -99,80 +98,81 @@ export default async function ArticlePage({ params }: Props) {
       <ReadingProgress />
       <ViewTracker slug={post.slug} />
       
-      <article className="mx-auto w-full max-w-7xl px-4 py-20 md:px-8">
-        <div className="mx-auto max-w-[720px]">
-          <div className="mb-6">
-            <Breadcrumbs
-              items={[
-                { label: "الرئيسية", href: "/" },
-                { label: "المقالات", href: "/blog" },
-                ...(post.categories ?
-                  [
-                    {
-                      label: post.categories.name_ar || post.categories.name,
-                      href: `/blog?category=${post.categories.slug}`,
-                    },
-                  ]
-                : []),
-              ]}
-            />
-          </div>
-
-          <h1 className="font-heading text-3xl font-black leading-[1.3] text-white md:text-[40px] lg:text-[48px]">
-            {displayTitle}
-          </h1>
-
-          <div className="mt-8 flex flex-wrap items-center gap-4 text-[#888888]">
-            <div className="flex items-center gap-2">
-              <Avatar className="size-8 border border-white/10">
-                <AvatarFallback className="bg-[#1a1a1a] text-[10px] text-white">M</AvatarFallback>
-              </Avatar>
-              <span className="text-[14px] font-medium text-white">{post.authors?.name || "المحرر"}</span>
-            </div>
-            <span className="text-[#333333]">•</span>
-            <div className="flex items-center gap-1.5">
-              <Calendar className="size-4" />
-              <span className="text-[14px]">
-                {post.published_at ?
-                  new Date(post.published_at).toLocaleDateString("ar-MA", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  })
-                : ""}
-              </span>
-            </div>
-            <span className="text-[#333333]">•</span>
-            <div className="flex items-center gap-1.5">
-              <Clock className="size-4" />
-              <span className="text-[14px]">{post.reading_time ?? 7} دقائق قراءة</span>
-            </div>
-          </div>
-
-          {post.categories && (
-            <div className="mt-6">
-              <Badge className="rounded-full bg-[#e63946] px-4 py-1 text-[11px] font-bold text-white">
-                {post.categories.name_ar || post.categories.name}
-              </Badge>
-            </div>
-          )}
-
-          <div className="my-10 h-px w-full bg-white/[0.06]" />
-        </div>
-
+      {/* Hero Section */}
+      <section className="relative flex min-h-[90vh] w-full flex-col justify-end pb-20 pt-32 md:min-h-[100vh]">
         {post.featured_image && (
-          <div className="relative mx-auto mb-12 aspect-[21/9] w-full max-w-[1024px] overflow-hidden rounded-[16px] border border-white/5">
-            <Image
-              src={post.featured_image}
-              alt={displayTitle}
-              fill
-              priority
-              className="object-cover"
-              sizes="(max-width:1024px) 100vw, 1024px"
-            />
-          </div>
+          <div 
+            className="absolute inset-0 z-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${post.featured_image})` }}
+          />
         )}
+        <div 
+          className="absolute inset-0 z-10 backdrop-blur-[1px]"
+          style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0.1) 100%)' }}
+        />
+        
+        <div className="container relative z-20 mx-auto px-4 md:px-8">
+          <div className="mx-auto max-w-[720px]">
+            <div className="mb-6">
+              <Breadcrumbs
+                items={[
+                  { label: "الرئيسية", href: "/" },
+                  { label: "المقالات", href: "/blog" },
+                  ...(post.categories ?
+                    [
+                      {
+                        label: post.categories.name_ar || post.categories.name,
+                        href: `/blog?category=${post.categories.slug}`,
+                      },
+                    ]
+                  : []),
+                ]}
+              />
+            </div>
 
+            <h1 className="font-heading text-3xl font-black leading-[1.3] text-white md:text-[40px] lg:text-[48px]">
+              {displayTitle}
+            </h1>
+
+            <div className="mt-8 flex flex-wrap items-center gap-4 text-[#888888]">
+              <div className="flex items-center gap-2">
+                <Avatar className="size-8 border border-white/10">
+                  <AvatarFallback className="bg-[#1a1a1a] text-[10px] text-white">M</AvatarFallback>
+                </Avatar>
+                <span className="text-[14px] font-medium text-white">{post.authors?.name || "المحرر"}</span>
+              </div>
+              <span className="text-[#333333]">•</span>
+              <div className="flex items-center gap-1.5">
+                <Calendar className="size-4" />
+                <span className="text-[14px]">
+                  {post.published_at ?
+                    new Date(post.published_at).toLocaleDateString("ar-MA", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })
+                  : ""}
+                </span>
+              </div>
+              <span className="text-[#333333]">•</span>
+              <div className="flex items-center gap-1.5">
+                <Clock className="size-4" />
+                <span className="text-[14px]">{post.reading_time ?? 7} دقائق قراءة</span>
+              </div>
+            </div>
+
+            {post.categories && (
+              <div className="mt-6">
+                <Badge className="rounded-full bg-[#e63946] px-4 py-1 text-[11px] font-bold text-white">
+                  {post.categories.name_ar || post.categories.name}
+                </Badge>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <article className="mx-auto w-full max-w-7xl px-4 py-20 md:px-8">
         <div className="grid gap-16 lg:grid-cols-[1fr_300px]">
           <div className="mx-auto w-full max-w-[720px]">
             <div

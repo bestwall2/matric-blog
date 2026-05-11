@@ -133,15 +133,30 @@
   }
 }
 
-@keyframes fadeInUp {
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateX(20px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
+}
+
+@layer utilities {
+  .animate-slide-in-right {
+    animation: slideInRight 0.35s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+  }
+  .animate-stagger-1 { animation: fadeInRight 0.4s ease forwards; animation-delay: 0ms; opacity: 0; }
+  .animate-stagger-2 { animation: fadeInRight 0.4s ease forwards; animation-delay: 60ms; opacity: 0; }
+  .animate-stagger-3 { animation: fadeInRight 0.4s ease forwards; animation-delay: 120ms; opacity: 0; }
+  .animate-stagger-4 { animation: fadeInRight 0.4s ease forwards; animation-delay: 180ms; opacity: 0; }
 }
 
 @keyframes float {
