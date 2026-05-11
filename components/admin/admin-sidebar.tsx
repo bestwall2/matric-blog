@@ -38,30 +38,38 @@ export function AdminSidebar() {
   }
 
   return (
-    <aside className="hidden w-64 flex-col border-r border-white/10 bg-[#0a0a0a] px-4 py-8 md:flex">
-      <Link href="/admin" className="px-2 font-heading text-xl text-white">
-        Matric<span className="text-[#e11d48]">Admin</span>
+    <aside className="hidden w-64 flex-col border-l border-white/10 bg-[#0a0a0a] px-4 py-8 md:flex">
+      <Link href="/admin" className="px-2 font-heading text-xl font-bold text-white">
+        Matric<span className="text-[#e63946]">Admin</span>
       </Link>
       <nav className="mt-10 flex flex-1 flex-col gap-1">
         {items.map((item) => {
           const Icon = item.icon;
           const active =
-            item.href === "/admin" ?
-              pathname === "/admin"
-            : pathname.startsWith(item.href);
+            item.href === "/admin"
+              ? pathname === "/admin"
+              : pathname.startsWith(item.href);
           return (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "flex items-center gap-3 rounded-xl px-3 py-2 text-sm transition",
-                active ?
-                  "bg-[#e11d48]/15 text-white"
-                : "text-neutral-400 hover:bg-white/5 hover:text-white"
+                "group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200",
+                active
+                  ? "bg-[#e63946]/10 text-white"
+                  : "text-neutral-400 hover:bg-white/5 hover:text-white"
               )}
             >
-              <Icon className="size-4" />
-              {item.label}
+              <Icon
+                className={cn(
+                  "size-4 shrink-0 transition-all duration-200",
+                  active && "text-[#e63946]"
+                )}
+              />
+              <span>{item.label}</span>
+              {active && (
+                <span className="mr-auto h-1.5 w-1.5 rounded-full bg-[#e63946]" />
+              )}
             </Link>
           );
         })}
@@ -69,7 +77,7 @@ export function AdminSidebar() {
       <div className="space-y-2 border-t border-white/10 pt-4">
         <Button
           variant="outline"
-          className="w-full justify-start border-white/15 bg-transparent text-neutral-200 hover:bg-white/10"
+          className="w-full justify-start border-white/10 bg-transparent text-neutral-400 transition-colors hover:bg-white/5 hover:text-white"
           asChild
         >
           <Link href="/" target="_blank">
@@ -79,7 +87,7 @@ export function AdminSidebar() {
         </Button>
         <Button
           variant="ghost"
-          className="w-full justify-start text-neutral-400 hover:text-white"
+          className="w-full justify-start text-neutral-500 transition-colors hover:text-white"
           onClick={() => void logout()}
         >
           <LogOut className="ml-2 size-4" />

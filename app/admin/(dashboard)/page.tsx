@@ -6,6 +6,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
+  CardDescription,
 } from "@/components/ui/card";
 import {
   Table,
@@ -17,8 +18,17 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import type { PostWithRelations } from "@/lib/types/database";
+import { Eye, Clock, FileText, PenLine, Sparkles } from "lucide-react";
 
 export const dynamic = "force-dynamic";
+
+const statusBadge: Record<string, "default" | "secondary" | "outline"> = {
+  published: "default",
+  draft: "secondary",
+  archived: "outline",
+};
+
+const statIcons = [FileText, FileText, PenLine, Eye];
 
 export default async function AdminDashboardPage() {
   const supabase = await createServerSupabase();
@@ -62,7 +72,7 @@ export default async function AdminDashboardPage() {
     <div className="space-y-10">
       <header className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#e11d48]">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#e63946]">
             نظرة عامة
           </p>
           <h1 className="mt-2 font-heading text-4xl text-white">
@@ -73,78 +83,128 @@ export default async function AdminDashboardPage() {
           </p>
         </div>
         <div className="flex flex-wrap gap-3">
-          <Button asChild className="bg-[#e11d48] hover:bg-[#be123c]">
-            <Link href="/admin/posts/new">مقال جديد</Link>
+          <Button asChild className="bg-[#e63946] hover:bg-[#c1121f]">
+            <Link href="/admin/posts/new">
+              <PenLine className="ml-2 size-4" />
+              مقال جديد
+            </Link>
           </Button>
           <Button asChild variant="outline" className="border-white/15 bg-transparent">
-            <Link href="/admin/ai-generate">توليد بالـ AI</Link>
+            <Link href="/admin/ai-generate">
+              <Sparkles className="ml-2 size-4" />
+              توليد بالـ AI
+            </Link>
           </Button>
-          <Button asChild variant="outline" className="border-white/15 bg-transparent">
+          <Button asChild variant="outline" className="hidden border-white/15 bg-transparent sm:inline-flex">
             <Link href="/">عرض الموقع</Link>
           </Button>
         </div>
       </header>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {stats.map((s) => (
-          <Card key={s.label} className="border-white/10 bg-[#141414]">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-xs uppercase tracking-wider text-neutral-500">
-                {s.label}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="font-heading text-3xl text-white">{s.value}</p>
-            </CardContent>
-          </Card>
-        ))}
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {stats.map((s, i) => {
+          const Icon = statIcons[i];
+          return (
+            <Card
+              key={s.label}
+              className="border-white/10 bg-[#141414] transition-colors hover:border-white/20"
+            >
+              <CardHeader className="flex flex-row items-center justify-between pb-2">
+                <CardTitle className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
+                  {s.label}
+                </CardTitle>
+                <Icon className="size-4 text-neutral-600" />
+              </CardHeader>
+              <CardContent>
+                <p className="font-heading text-3xl font-bold text-white">
+                  {typeof s.value === "number"
+                    ? new Intl.NumberFormat("ar-MA").format(s.value)
+                    : s.value}
+                </p>
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
 
       <Card className="border-white/10 bg-[#141414]">
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle className="text-white">آخر المقالات</CardTitle>
-          <Button asChild size="sm" variant="ghost" className="text-[#e11d48]">
+          <div>
+            <CardTitle className="text-white">آخر المقالات</CardTitle>
+            <CardDescription className="text-neutral-500">
+              أحدث 8 مقالات
+            </CardDescription>
+          </div>
+          <Button asChild size="sm" variant="ghost" className="text-[#e63946]">
             <Link href="/admin/posts">عرض الكل</Link>
           </Button>
         </CardHeader>
-        <CardContent className="overflow-x-auto">
+        <CardContent className="p-0 sm:p-4 sm:pt-0">
           <Table>
             <TableHeader>
               <TableRow className="border-white/10 hover:bg-transparent">
                 <TableHead className="text-neutral-400">العنوان</TableHead>
-                <TableHead className="text-neutral-400">الحالة</TableHead>
-                <TableHead className="text-neutral-400">المشاهدات</TableHead>
+                <TableHead className="hidden text-neutral-400 sm:table-cell">الحالة</TableHead>
+                <TableHead className="hidden text-neutral-400 sm:table-cell">المشاهدات</TableHead>
                 <TableHead className="text-neutral-400">تحديث</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {recent.map((row) => (
-                <TableRow key={row.id} className="border-white/10">
+                <TableRow
+                  key={row.id}
+                  className="border-white/5 transition-colors hover:bg-white/[0.02]"
+                >
                   <TableCell className="font-medium text-white">
                     <Link
                       href={`/admin/posts/${row.id}/edit`}
-                      className="hover:text-[#e11d48]"
+                      className="transition-colors hover:text-[#e63946]"
                     >
                       {row.title}
                     </Link>
-                    <div className="text-xs text-neutral-500">{row.slug}</div>
+                    <div className="mt-0.5 flex flex-wrap items-center gap-2 text-xs text-neutral-500">
+                      {row.slug}
+                      <span className="sm:hidden">
+                        <Badge
+                          variant={statusBadge[row.status ?? ""] ?? "secondary"}
+                          className="text-[10px]"
+                        >
+                          {row.status}
+                        </Badge>
+                      </span>
+                    </div>
                   </TableCell>
-                  <TableCell>
-                    <Badge variant="secondary">{row.status}</Badge>
+                  <TableCell className="hidden sm:table-cell">
+                    <Badge variant={statusBadge[row.status ?? ""] ?? "secondary"}>
+                      {row.status}
+                    </Badge>
                   </TableCell>
-                  <TableCell className="text-neutral-300">
-                    {row.view_count ?? 0}
+                  <TableCell className="hidden text-neutral-300 sm:table-cell">
+                    <span className="inline-flex items-center gap-1.5">
+                      <Eye className="size-3.5 text-neutral-500" />
+                      {row.view_count ?? 0}
+                    </span>
                   </TableCell>
                   <TableCell className="text-neutral-400">
-                    {row.updated_at ?
-                      new Date(row.updated_at).toLocaleString("ar-MA")
-                    : ""}
+                    <span className="inline-flex items-center gap-1.5">
+                      <Clock className="size-3.5 shrink-0 text-neutral-500" />
+                      <span className="hidden sm:inline">
+                        {row.updated_at
+                          ? new Date(row.updated_at).toLocaleString("ar-MA")
+                          : ""}
+                      </span>
+                      <span className="sm:hidden">
+                        {row.updated_at
+                          ? new Date(row.updated_at).toLocaleDateString("ar-MA")
+                          : ""}
+                      </span>
+                    </span>
                   </TableCell>
                 </TableRow>
               ))}
               {!recent.length && (
                 <TableRow>
-                  <TableCell colSpan={4} className="text-center text-neutral-500">
+                  <TableCell colSpan={4} className="py-16 text-center text-neutral-500">
                     لا توجد مقالات بعد.
                   </TableCell>
                 </TableRow>
