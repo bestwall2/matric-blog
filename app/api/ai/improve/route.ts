@@ -41,7 +41,7 @@ ${html.slice(0, 120_000)}`;
     const raw = await callGeminiJson({
       system,
       user,
-      maxOutputTokens: 4096,
+      maxOutputTokens: 8192,
     });
     const data = parseJsonLoose<{ content: string; seo_notes: string[] }>(raw);
     return NextResponse.json({ success: true, data });

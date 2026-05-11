@@ -88,7 +88,7 @@ Return a JSON object with this exact structure:
     const raw = await callGeminiJson({
       system: systemPrompt,
       user: userPrompt,
-      maxOutputTokens: 4096,
+      maxOutputTokens: 8192,
     });
 
     const data = parseJsonLoose<Record<string, unknown>>(raw);

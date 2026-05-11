@@ -29,8 +29,9 @@ export async function callGeminiJson(params: {
           },
         ],
         generationConfig: {
-          maxOutputTokens: params.maxOutputTokens ?? 4096,
+          maxOutputTokens: params.maxOutputTokens ?? 8192,
           temperature: 0.7,
+          responseMimeType: "application/json",
         },
       }),
     }
@@ -57,6 +58,18 @@ export async function callGeminiJson(params: {
 }
 
 export function parseJsonLoose<T>(raw: string): T {
-  const cleaned = raw.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "");
-  return JSON.parse(cleaned) as T;
+  let cleaned = raw.trim();
+  cleaned = cleaned.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "");
+  try {
+    return JSON.parse(cleaned) as T;
+  } catch {
+    cleaned = cleaned
+      .replace(/[\s\S]*?({[\s\S]*?})([\s\S]*)?/, "$1")
+      .replace(/,\s*([}\]])/g, "$1")
+      .replace(/(['"])?([a-zA-Z0-9_]+)(['"])?\s*:/g, '"$2":')
+      .replace(/'\s*:/g, '":')
+      .replace(/:\s*'/g, ':"')
+      .replace(/'/g, '"');
+    return JSON.parse(cleaned) as T;
+  }
 }
