@@ -27,6 +27,14 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
+.env.local
+.env.*.local
+
+# secrets / credentials
+*service_role*
+*openrouter*
+*anthropic*
 
 # vercel
 .vercel
