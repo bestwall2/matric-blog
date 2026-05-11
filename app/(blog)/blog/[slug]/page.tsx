@@ -16,9 +16,9 @@ import {
 } from "@/lib/posts";
 import { articleUrl, buildArticleJsonLd } from "@/lib/seo";
 import { createServerSupabase } from "@/lib/supabase/server";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+import { Clock, Calendar } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -34,7 +34,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     post.meta_description?.trim() || post.excerpt || post.title;
   const canonical = post.canonical_url?.trim() || articleUrl(post.slug);
   
-  // Ensure og:image doesn't use third-party domains like mrkehel.com
   let og = post.featured_image?.trim();
   if (!og || og.includes("mrkehel.com")) {
     og = post.og_image?.trim();
@@ -99,65 +98,70 @@ export default async function ArticlePage({ params }: Props) {
       <JsonLd data={jsonLd as Record<string, unknown>} />
       <ReadingProgress />
       <ViewTracker slug={post.slug} />
-      <article className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
-        <Breadcrumbs
-          items={[
-            { label: "الرئيسية", href: "/" },
-            { label: "المقالات", href: "/blog" },
-            ...(post.categories ?
-              [
-                {
-                  label: post.categories.name_ar || post.categories.name,
-                  href: `/blog?category=${post.categories.slug}`,
-                },
-              ]
-            : []),
-            { label: displayTitle },
-          ]}
-        />
-
-        <header className="mt-8 space-y-4">
-          <div className="flex flex-wrap gap-2">
-            {post.categories && (
-              <Badge className="bg-[#e11d48]/15 text-[11px] uppercase tracking-wide text-[#e11d48]">
-                {post.categories.name_ar || post.categories.name}
-              </Badge>
-            )}
-            <Badge variant="secondary" className="text-[11px]">
-              {post.reading_time ?? 5} دقيقة قراءة
-            </Badge>
-            <Badge variant="outline" className="border-white/15 text-[11px]">
-              {post.view_count ?? 0} مشاهدة
-            </Badge>
+      
+      <article className="mx-auto w-full max-w-7xl px-4 py-20 md:px-8">
+        <div className="mx-auto max-w-[720px]">
+          <div className="mb-6">
+            <Breadcrumbs
+              items={[
+                { label: "الرئيسية", href: "/" },
+                { label: "المقالات", href: "/blog" },
+                ...(post.categories ?
+                  [
+                    {
+                      label: post.categories.name_ar || post.categories.name,
+                      href: `/blog?category=${post.categories.slug}`,
+                    },
+                  ]
+                : []),
+              ]}
+            />
           </div>
-          <h1 className="font-heading text-4xl leading-tight text-white md:text-5xl lg:text-6xl">
+
+          <h1 className="font-heading text-3xl font-black leading-[1.3] text-white md:text-[40px] lg:text-[48px]">
             {displayTitle}
           </h1>
-          {post.excerpt ? (
-            <p className="max-w-3xl text-lg text-neutral-400">{post.excerpt}</p>
-          ) : null}
-          
-          <div className="flex items-center gap-4 pt-4">
-            <Avatar className="size-12 border-2 border-[#e63946]">
-              <AvatarFallback className="bg-[#e63946] text-white font-bold">M</AvatarFallback>
-            </Avatar>
-            <div className="flex flex-col">
-              <span className="font-medium text-white">فريق تحرير MatricBlog</span>
-              <div className="flex items-center gap-2 text-xs text-neutral-500">
-                <span>فريق متخصص في أدلة البث الرياضي والتقنية للقارئ العربي</span>
-                <span>•</span>
-                <span>
-                  {post.published_at ?
-                    new Date(post.published_at).toLocaleDateString("ar-MA")
-                  : ""}
-                </span>
-              </div>
+
+          <div className="mt-8 flex flex-wrap items-center gap-4 text-[#888888]">
+            <div className="flex items-center gap-2">
+              <Avatar className="size-8 border border-white/10">
+                <AvatarFallback className="bg-[#1a1a1a] text-[10px] text-white">M</AvatarFallback>
+              </Avatar>
+              <span className="text-[14px] font-medium text-white">{post.authors?.name || "المحرر"}</span>
+            </div>
+            <span className="text-[#333333]">•</span>
+            <div className="flex items-center gap-1.5">
+              <Calendar className="size-4" />
+              <span className="text-[14px]">
+                {post.published_at ?
+                  new Date(post.published_at).toLocaleDateString("ar-MA", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })
+                : ""}
+              </span>
+            </div>
+            <span className="text-[#333333]">•</span>
+            <div className="flex items-center gap-1.5">
+              <Clock className="size-4" />
+              <span className="text-[14px]">{post.reading_time ?? 7} دقائق قراءة</span>
             </div>
           </div>
-        </header>
 
-        {post.featured_image ?
-          <div className="relative mt-10 aspect-[21/9] overflow-hidden rounded-3xl border border-white/10">
+          {post.categories && (
+            <div className="mt-6">
+              <Badge className="rounded-full bg-[#e63946] px-4 py-1 text-[11px] font-bold text-white">
+                {post.categories.name_ar || post.categories.name}
+              </Badge>
+            </div>
+          )}
+
+          <div className="my-10 h-px w-full bg-white/[0.06]" />
+        </div>
+
+        {post.featured_image && (
+          <div className="relative mx-auto mb-12 aspect-[21/9] w-full max-w-[1024px] overflow-hidden rounded-[16px] border border-white/5">
             <Image
               src={post.featured_image}
               alt={displayTitle}
@@ -167,63 +171,40 @@ export default async function ArticlePage({ params }: Props) {
               sizes="(max-width:1024px) 100vw, 1024px"
             />
           </div>
-        : null}
+        )}
 
-        <Separator className="my-10 bg-white/10" />
-
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_280px]">
-          <div>
+        <div className="grid gap-16 lg:grid-cols-[1fr_300px]">
+          <div className="mx-auto w-full max-w-[720px]">
             <div
               className="article-html"
               dangerouslySetInnerHTML={{ __html: html }}
             />
-            <Separator className="my-12 bg-white/10" />
-            <section className="space-y-4">
-              <h2 className="font-heading text-2xl text-white">شارك المقال</h2>
+            
+            <div className="mt-16 flex flex-col gap-6">
+              <h3 className="font-heading text-xl font-bold text-white">شارك هذا المقال</h3>
               <ShareButtons url={url} title={displayTitle} />
-            </section>
-          </div>
-          <TocSidebar />
-        </div>
-
-        <section className="mt-16 rounded-3xl border border-white/10 bg-[#141414] p-8 md:p-10">
-          <div className="flex flex-col gap-6 md:flex-row md:items-center">
-            <Avatar className="size-20 border border-white/10">
-              {post.authors?.avatar ?
-                <AvatarImage src={post.authors.avatar} alt={post.authors.name} />
-              : null}
-              <AvatarFallback className="bg-[#0a0a0a] text-lg text-white">
-                {(post.authors?.name || "M").slice(0, 2)}
-              </AvatarFallback>
-            </Avatar>
-            <div>
-              <p className="text-xs uppercase tracking-wider text-neutral-500">
-                عن الكاتب
-              </p>
-              <p className="mt-1 font-heading text-2xl text-white">
-                {post.authors?.name ?? "Editorial"}
-              </p>
-              {post.authors?.bio ?
-                <p className="mt-2 max-w-2xl text-neutral-400">
-                  {post.authors.bio}
-                </p>
-              : (
-                <p className="mt-2 max-w-2xl text-neutral-400">
-                  فريق تحرير MatricBlog يركّز على دقة المعلومات وتجربة القارئ.
-                </p>
-              )}
             </div>
-          </div>
-        </section>
 
-        {related.length ?
-          <section className="mt-16 space-y-6">
-            <h2 className="font-heading text-3xl text-white">مقالات ذات صلة</h2>
-            <ArticleGrid posts={related} />
-          </section>
-        : null}
+            {related.length > 0 && (
+              <section className="mt-24 space-y-10">
+                <div className="flex items-center justify-between">
+                  <h2 className="font-heading text-2xl font-black text-white md:text-3xl">اقرأ أيضاً</h2>
+                  <div className="h-0.5 flex-1 bg-white/5 mx-6" />
+                </div>
+                <ArticleGrid posts={related} />
+              </section>
+            )}
+          </div>
+
+          <aside className="hidden lg:block">
+            <div className="sticky top-24">
+              <TocSidebar />
+            </div>
+          </aside>
+        </div>
       </article>
       <BackToTop />
     </>
   );
 }
+

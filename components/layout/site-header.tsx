@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Languages, Menu } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
+import { Menu } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -13,113 +13,100 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { useState } from "react";
-import { DirBridge } from "@/components/layout/dir-bridge";
 
 const links = [
-  { href: "/", label: "الرئيسية", labelEn: "Home" },
-  { href: "/blog", label: "المقالات", labelEn: "Articles" },
-  { href: "/about", label: "من نحن", labelEn: "About" },
-  { href: "/contact", label: "اتصل بنا", labelEn: "Contact" },
+  { href: "/", label: "الرئيسية" },
+  { href: "/blog", label: "المقالات" },
+  { href: "/about", label: "من نحن" },
+  { href: "/contact", label: "اتصل بنا" },
 ];
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const [dir, setDir] = useState<"rtl" | "ltr">("rtl");
   const [open, setOpen] = useState(false);
 
   return (
-    <>
-      <DirBridge dir={dir} />
-      <header className="glass glass-border fixed top-0 z-50 w-full">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-6">
-          <Link href="/" className="group flex items-center gap-2">
-            <span className="font-heading text-xl font-bold tracking-tight text-white md:text-2xl">
-              Matric<span className="text-[#e63946]">Blog</span>
-            </span>
+    <header className="glass fixed top-0 z-50 w-full border-b border-white/5 h-16">
+      <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4 md:px-8">
+        {/* Logo (Right in RTL) */}
+        <Link href="/" className="group flex items-center gap-2">
+          <div className="size-3 bg-[#e63946] transition-transform group-hover:rotate-45" />
+          <span className="font-heading text-xl font-black tracking-tight text-white md:text-2xl">
+            MatricBlog
+          </span>
+        </Link>
+
+        {/* Nav Links (Middle) */}
+        <nav className="hidden items-center gap-8 md:flex">
+          {links.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className={cn(
+                "text-[15px] font-medium transition-all duration-300",
+                pathname === l.href 
+                  ? "text-white" 
+                  : "text-[#888888] hover:text-white"
+              )}
+            >
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* CTA (Left in RTL) */}
+        <div className="flex items-center gap-4">
+          <Link
+            href="/blog"
+            className="hidden rounded-full bg-[#e63946] px-6 py-2 text-[14px] font-bold text-white transition-all hover:bg-[#c1121f] hover:scale-105 active:scale-95 md:inline-block"
+          >
+            ابدأ القراءة
           </Link>
 
-          <nav className="hidden items-center gap-1 md:flex">
-            {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className={cn(
-                  "relative px-4 py-2 text-sm font-medium text-neutral-400 transition-colors hover:text-white",
-                  "after:absolute after:bottom-0 after:left-1/2 after:h-[2px] after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-[#e63946] after:transition-all after:duration-300 hover:after:w-4/5",
-                  pathname === l.href && "text-[#e63946] after:w-4/5"
-                )}
-              >
-                {dir === "rtl" ? l.label : l.labelEn}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              className="hidden border border-white/10 bg-white/5 text-neutral-300 hover:bg-white/10 md:inline-flex"
-              onClick={() => setDir(dir === "rtl" ? "ltr" : "rtl")}
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger
+              className={cn(
+                buttonVariants({ variant: "ghost", size: "icon" }),
+                "text-white md:hidden"
+              )}
+              aria-label="Menu"
             >
-              <Languages className="ml-2 size-4" />
-              {dir === "rtl" ? "English" : "العربية"}
-            </Button>
-
-            <Link
-              href="/blog"
-              className="hidden rounded-full bg-[#e63946] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[#c1121f] md:inline-block"
+              <Menu className="size-6" />
+            </SheetTrigger>
+            <SheetContent
+              side="right"
+              className="border-white/5 bg-[#0a0a0a]/95 backdrop-blur-2xl text-white pt-16"
             >
-              ابدأ القراءة
-            </Link>
-
-            <Sheet open={open} onOpenChange={setOpen}>
-              <SheetTrigger
-                className={cn(
-                  buttonVariants({ variant: "ghost", size: "icon" }),
-                  "text-white md:hidden"
-                )}
-                aria-label="Menu"
-              >
-                <Menu className="size-5" />
-              </SheetTrigger>
-              <SheetContent
-                side={dir === "rtl" ? "right" : "left"}
-                className="border-white/10 bg-[#0a0a0a]/95 backdrop-blur-xl text-white"
-              >
-                <SheetHeader>
-                  <SheetTitle className="font-heading text-left text-white">
-                    القائمة
-                  </SheetTitle>
-                </SheetHeader>
-                <div className="mt-8 flex flex-col gap-4">
-                  {links.map((l) => (
-                    <Link
-                      key={l.href}
-                      href={l.href}
-                      onClick={() => setOpen(false)}
-                      className={cn(
-                        "text-lg font-medium text-neutral-300 transition-colors hover:text-white",
-                        pathname === l.href && "text-[#e63946]"
-                      )}
-                    >
-                      {dir === "rtl" ? l.label : l.labelEn}
-                    </Link>
-                  ))}
-                  <Button
-                    variant="outline"
-                    className="mt-4 border-white/15 text-white"
-                    onClick={() => setDir(dir === "rtl" ? "ltr" : "rtl")}
+              <SheetHeader className="sr-only">
+                <SheetTitle>القائمة</SheetTitle>
+              </SheetHeader>
+              <div className="flex flex-col gap-6">
+                {links.map((l) => (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    onClick={() => setOpen(false)}
+                    className={cn(
+                      "text-2xl font-bold transition-colors",
+                      pathname === l.href ? "text-[#e63946]" : "text-neutral-400"
+                    )}
                   >
-                    <Languages className="ml-2 size-4" />
-                    {dir === "rtl" ? "English" : "العربية"}
-                  </Button>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
+                    {l.label}
+                  </Link>
+                ))}
+                <Link
+                  href="/blog"
+                  onClick={() => setOpen(false)}
+                  className="mt-4 rounded-xl bg-[#e63946] py-4 text-center text-lg font-bold"
+                >
+                  ابدأ القراءة
+                </Link>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
-      </header>
-    </>
+      </div>
+    </header>
   );
 }
+

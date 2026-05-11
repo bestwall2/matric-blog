@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { Mail, Lock } from "lucide-react";
 
 export function NewsletterSection() {
   const [email, setEmail] = useState("");
@@ -29,54 +30,51 @@ export function NewsletterSection() {
   }
 
   return (
-    <section className="gradient-border relative overflow-hidden rounded-3xl bg-[#141414] px-6 py-16 md:px-14 md:py-20">
-      <div className="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-soft-light bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E')]" />
-      <div className="relative mx-auto max-w-xl text-center">
-        <div className="mx-auto mb-6 flex size-14 items-center justify-center rounded-full bg-[#e63946]/10">
-          <svg
-            className="size-6 text-[#e63946]"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
-            />
-          </svg>
+    <section className="relative w-full overflow-hidden mesh-gradient py-20">
+      {/* Decorative Glow */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden">
+        <div className="size-[400px] rounded-full bg-[#e63946] opacity-[0.05] blur-[100px]" />
+      </div>
+
+      <div className="relative mx-auto max-w-[560px] px-6 text-center">
+        <div className="mx-auto mb-8 flex size-[80px] items-center justify-center rounded-full bg-white/5 border border-white/10">
+          <Mail className="size-10 text-[#e63946]" />
         </div>
-        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#e63946]">
-          النشرة البريدية
-        </p>
-        <h2 className="mt-3 font-heading text-3xl text-white md:text-4xl">
+        
+        <h2 className="font-heading text-[28px] font-bold text-white">
           لمحة أسبوعية من أهم الأدلة والتحديثات
         </h2>
-        <p className="mt-3 text-sm text-neutral-500">
-          بريدك يبقى خاصًا — لا رسائل مزعجة، فقط ملخصات مفيدة.
+        <p className="mt-3 text-[15px] text-[#888888]">
+          انضم إلى أكثر من 5000 قارئ مهتم بجديد التقنية والرياضة.
         </p>
+
         <form
           onSubmit={submit}
-          className="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row"
+          className="mt-10 flex flex-col gap-3 sm:flex-row"
         >
           <Input
             type="email"
             required
-            placeholder="you@example.com"
+            placeholder="البريد الإلكتروني"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="border-white/10 bg-[#0a0a0a] text-white placeholder:text-neutral-600 focus-visible:ring-[#e63946]/30"
+            className="h-[52px] rounded-xl border-white/10 bg-[#0a0a0a] text-white placeholder:text-[#888888] focus-visible:border-[#e63946] focus-visible:ring-0"
           />
           <Button
             type="submit"
             disabled={loading}
-            className="bg-[#e63946] px-6 text-white shadow-lg shadow-[#e63946]/20 transition-all hover:bg-[#d62f3f] hover:shadow-[#e63946]/30"
+            className="h-[52px] rounded-xl bg-[#e63946] px-8 text-[16px] font-bold text-white transition-all hover:bg-[#c1121f] sm:w-fit w-full"
           >
             {loading ? "جارٍ..." : "اشترك"}
           </Button>
         </form>
+
+        <div className="mt-6 flex items-center justify-center gap-2 text-[12px] text-[#888888]">
+          <Lock className="size-3" />
+          <span>بريدك يبقى خاصًا — لا رسائل مزعجة.</span>
+        </div>
       </div>
     </section>
   );
 }
+

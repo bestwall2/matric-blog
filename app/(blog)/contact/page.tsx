@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Mail } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "اتصل بنا",
@@ -11,80 +12,77 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="mx-auto max-w-4xl space-y-12 px-4 py-16 md:px-6 md:py-24">
-      <header className="space-y-4 text-center">
-        <h1 className="font-heading text-4xl text-white md:text-6xl">اتصل بنا</h1>
-        <p className="mx-auto max-w-2xl text-lg leading-relaxed text-neutral-400">
+    <div className="mx-auto w-full max-w-7xl px-4 py-32 md:px-8">
+      <header className="space-y-6 text-center animate-fade-in-up">
+        <h1 className="font-heading text-4xl font-black text-white md:text-6xl">اتصل بنا</h1>
+        <p className="mx-auto max-w-3xl text-lg leading-[1.8] text-[#888888]">
           نحن هنا للإجابة على استفساراتكم. سواء كنت تبحث عن شراكة إعلامية أو ترغب في الإبلاغ عن خطأ تقني، يسعدنا تواصلك معنا.
         </p>
+        <div className="mx-auto h-1 w-20 bg-[#e63946]" />
       </header>
 
-      <div className="grid gap-12 md:grid-cols-2">
+      <div className="mt-24 grid gap-12 lg:grid-cols-2">
         <div className="space-y-8">
-          <div className="rounded-3xl border border-white/10 bg-[#141414] p-8">
-            <h2 className="font-heading text-2xl text-white">معلومات التواصل</h2>
-            <p className="mt-4 text-neutral-400">
+          <div className="rounded-[16px] bg-[#111111] p-10 border border-white/5">
+            <h2 className="font-heading text-2xl font-bold text-white">معلومات التواصل</h2>
+            <p className="mt-4 text-[#888888]">
               يمكنك مراسلتنا مباشرة عبر البريد الإلكتروني، وسنقوم بالرد عليك في غضون 24-48 ساعة.
             </p>
-            <div className="mt-6 flex flex-col gap-4">
-              <div className="flex items-center gap-4 text-neutral-300">
-                <div className="flex size-10 items-center justify-center rounded-full bg-[#e63946]/10 text-[#e63946]">
-                  <svg className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <span>contact@matric-blog.vercel.app</span>
+            <div className="mt-8 flex items-center gap-4 text-white">
+              <div className="flex size-12 items-center justify-center rounded-full bg-white/5 border border-white/10 text-[#e63946]">
+                <Mail className="size-6" />
               </div>
+              <span className="text-[16px] font-medium">contact@matric-blog.vercel.app</span>
             </div>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-8">
-            <h2 className="font-heading text-xl text-white">لماذا تتواصل معنا؟</h2>
-            <ul className="mt-4 space-y-3 text-sm text-neutral-500">
-              <li className="flex gap-2">
-                <span className="text-[#e63946]">✦</span>
-                طلبات الشراكة والتبادل الإعلاني.
+          <div className="rounded-[16px] bg-[#050505] p-10 border border-white/5">
+            <h2 className="font-heading text-xl font-bold text-white">لماذا تتواصل معنا؟</h2>
+            <ul className="mt-6 space-y-4">
+              <li className="flex items-start gap-3">
+                <div className="mt-1 size-1.5 rounded-full bg-[#e63946]" />
+                <span className="text-[15px] text-[#888888]">طلبات الشراكة والتبادل الإعلاني.</span>
               </li>
-              <li className="flex gap-2">
-                <span className="text-[#e63946]">✦</span>
-                تقديم اقتراحات لمواضيع تهم القارئ العربي.
+              <li className="flex items-start gap-3">
+                <div className="mt-1 size-1.5 rounded-full bg-[#e63946]" />
+                <span className="text-[15px] text-[#888888]">تقديم اقتراحات لمواضيع تهم القارئ العربي.</span>
               </li>
-              <li className="flex gap-2">
-                <span className="text-[#e63946]">✦</span>
-                الإبلاغ عن مشاكل تقنية في الموقع.
+              <li className="flex items-start gap-3">
+                <div className="mt-1 size-1.5 rounded-full bg-[#e63946]" />
+                <span className="text-[15px] text-[#888888]">الإبلاغ عن مشاكل تقنية في الموقع.</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <form className="space-y-6 rounded-3xl border border-white/10 bg-[#141414] p-8">
-          <div className="space-y-2">
-            <Label htmlFor="name" className="text-white">الاسم الكامل</Label>
+        <form className="space-y-8 rounded-[16px] bg-[#111111] p-10 border border-white/5">
+          <div className="space-y-3">
+            <Label htmlFor="name" className="text-[14px] font-bold text-white">الاسم الكامل</Label>
             <Input 
               id="name" 
               placeholder="أدخل اسمك هنا" 
-              className="border-white/10 bg-[#0a0a0a] text-white focus-visible:ring-[#e63946]/30" 
+              className="h-[52px] rounded-xl border-white/10 bg-[#0a0a0a] text-white focus-visible:border-[#e63946] focus-visible:ring-0" 
             />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="email" className="text-white">البريد الإلكتروني</Label>
+          <div className="space-y-3">
+            <Label htmlFor="email" className="text-[14px] font-bold text-white">البريد الإلكتروني</Label>
             <Input 
               id="email" 
               type="email" 
               placeholder="email@example.com" 
-              className="border-white/10 bg-[#0a0a0a] text-white focus-visible:ring-[#e63946]/30" 
+              className="h-[52px] rounded-xl border-white/10 bg-[#0a0a0a] text-white focus-visible:border-[#e63946] focus-visible:ring-0" 
             />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="message" className="text-white">الرسالة</Label>
+          <div className="space-y-3">
+            <Label htmlFor="message" className="text-[14px] font-bold text-white">الرسالة</Label>
             <Textarea 
               id="message" 
               placeholder="كيف يمكننا مساعدتك؟" 
               rows={5}
-              className="border-white/10 bg-[#0a0a0a] text-white focus-visible:ring-[#e63946]/30" 
+              className="rounded-xl border-white/10 bg-[#0a0a0a] text-white focus-visible:border-[#e63946] focus-visible:ring-0" 
             />
           </div>
-          <Button className="w-full bg-[#e63946] text-white hover:bg-[#d62839]">
+          <Button className="h-[52px] w-full rounded-xl bg-[#e63946] text-[16px] font-bold text-white transition-all hover:bg-[#c1121f] glow-red">
             إرسال الرسالة
           </Button>
         </form>
@@ -92,3 +90,4 @@ export default function ContactPage() {
     </div>
   );
 }
+
