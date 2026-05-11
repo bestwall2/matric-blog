@@ -143,13 +143,13 @@
     --border-hover: rgba(255,255,255,0.15);
     --shadow-card: 0 2px 20px rgba(0,0,0,0.5);
     --shadow-hover: 0 8px 40px rgba(230,57,70,0.15);
-    --navbar-bg: rgba(10,10,10,0.85);
+    --navbar-bg: rgba(10,10,10,0.92);
     --overlay: rgba(0,0,0,0.75);
     --navbar-shadow: none;
     --hero-gradient: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 100%);
     --article-body-color: #cccccc;
     --code-bg: #1a1a1a;
-    --drawer-bg: linear-gradient(160deg, #0f0f0f 0%, #1a0505 100%);
+    --drawer-bg: #0a0a0a;
     --pill-inactive-bg: #1a1a1a;
     --pill-inactive-text: #888888;
     --footer-bg: #050505;
@@ -188,13 +188,13 @@
     --border-hover: rgba(0,0,0,0.2);
     --shadow-card: 0 2px 20px rgba(0,0,0,0.08);
     --shadow-hover: 0 8px 40px rgba(230,57,70,0.12);
-    --navbar-bg: rgba(248,248,248,0.9);
+    --navbar-bg: rgba(10,10,10,0.92);
     --overlay: rgba(0,0,0,0.5);
     --navbar-shadow: 0 1px 20px rgba(0,0,0,0.08);
-    --hero-gradient: linear-gradient(135deg, #f0f0f0 0%, #fafafa 100%);
+    --hero-gradient: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 100%);
     --article-body-color: #333333;
     --code-bg: #f4f4f4;
-    --drawer-bg: linear-gradient(160deg, #ffffff 0%, #fff5f5 100%);
+    --drawer-bg: #0a0a0a;
     --pill-inactive-bg: #eeeeee;
     --pill-inactive-text: #555555;
     --footer-bg: #f0f0f0;
@@ -228,6 +228,7 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     background-image: radial-gradient(circle at 50% 0%, rgba(230, 57, 70, 0.05) 0%, transparent 50%);
+    font-family: Cairo, var(--font-body), system-ui, sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {

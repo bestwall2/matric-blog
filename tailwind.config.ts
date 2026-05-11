@@ -10,8 +10,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-body)", "Inter", "system-ui", "sans-serif"],
-        heading: ["var(--font-heading)", "Cairo", "system-ui", "sans-serif"],
+        sans: ["Cairo", "var(--font-body)", "system-ui", "sans-serif"],
+        heading: ["Cairo", "var(--font-heading)", "system-ui", "sans-serif"],
       },
       colors: {
         border: "var(--border)",

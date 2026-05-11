@@ -7,13 +7,13 @@ import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/constants";
 const heading = Cairo({
   subsets: ["arabic", "latin"],
   variable: "--font-heading",
-  weight: ["600", "700", "800", "900"],
+  weight: ["400", "600", "700", "900"],
 });
 
 const body = Cairo({
   subsets: ["arabic", "latin"],
   variable: "--font-body",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600", "700", "900"],
 });
 
 export const metadata: Metadata = {

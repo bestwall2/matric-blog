@@ -80,13 +80,13 @@ export function ThemeToggleMobile() {
   const { theme, toggle } = useTheme();
 
   return (
-    <div className="border-t border-[var(--border)]">
+    <div className="border-t border-white/10">
       <div className="flex h-14 items-center justify-between px-8">
         <div className="flex items-center gap-3">
-          <span className="text-[var(--text-muted)]">
+          <span className="text-white/70">
             {theme === "dark" ? <SunIcon /> : <MoonIcon />}
           </span>
-          <span className="font-heading text-[15px] font-medium text-[var(--text-primary)]">
+          <span className="font-heading text-[15px] font-medium text-white">
             {theme === "dark" ? "الوضع النهاري" : "الوضع الليلي"}
           </span>
         </div>

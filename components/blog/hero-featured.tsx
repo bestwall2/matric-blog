@@ -10,7 +10,24 @@ export function HeroFeatured({
   post: PostWithRelations;
 }) {
   const title = post.title_ar?.trim() ? post.title_ar : post.title;
-  const excerpt = post.excerpt ?? "";
+  const postDescriptions = post as PostWithRelations & {
+    description_ar?: string | null;
+    excerpt_ar?: string | null;
+    arabic_description?: string | null;
+    description?: string | null;
+    meta_description?: string | null;
+  };
+  const excerpt =
+    [
+      postDescriptions.description_ar,
+      postDescriptions.excerpt_ar,
+      postDescriptions.arabic_description,
+      postDescriptions.meta_description,
+      postDescriptions.description,
+      post.excerpt,
+    ]
+      .map((value) => value?.trim() ?? "")
+      .find((value) => /[\u0600-\u06FF]/.test(value)) ?? "";
 
   return (
     <section className="relative h-[100vh] w-full overflow-hidden bg-[var(--bg-primary)] flex items-center">
@@ -100,4 +117,3 @@ export function HeroFeatured({
     </section>
   );
 }
-
